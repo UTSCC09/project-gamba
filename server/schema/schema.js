@@ -1,4 +1,5 @@
 const {GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLList, GraphQLNonNull} = require('graphql');
+import { compare, genSalt, hash } from "bcrypt";
 
 // Mongoose models
 const User = require('../models/User');
@@ -6,9 +7,8 @@ const User = require('../models/User');
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
-        id: {type: GraphQLID},
-        name: {type: GraphQLString},
-        email: {type: GraphQLString}
+        username: {type: GraphQLString},
+        password: {type: GraphQLString}
     })
 });
 
@@ -40,15 +40,20 @@ const mutation = new GraphQLObjectType({
         addUser: {
             type: UserType,
             args: {
-                name: {type: GraphQLNonNull(GraphQLString)},
-                email: {type: GraphQLNonNull(GraphQLString)}
+                username: {type: GraphQLNonNull(GraphQLString)},
+                password: {type: GraphQLNonNull(GraphQLString)}
             },
+
             resolve(parent, args){
-                const user = new User({
-                    name: args.name,
-                    email: args.email
-                });
-                return user.save();
+                genSalt(10, function(err, salt) {
+                    hash(args.password, salt, function(err, hash) {
+                        const user = new User({
+                            username: args.username,
+                            password: args.password
+                        });
+                        return user.save();
+                    });
+                  });
             }
         },
         deleteUser: {

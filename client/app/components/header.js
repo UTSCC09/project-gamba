@@ -1,8 +1,10 @@
+import Link from 'next/link'
+
 export default function Header(){
     return( 
         <nav>
             <div>
-                <a>header</a>
+                <Link href="/signup">Signup</Link>
             </div>
         </nav>
     )
