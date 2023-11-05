@@ -18,4 +18,13 @@ const DELETE_USER = gql`
     }
 `
 
-export {ADD_USER, DELETE_USER}
+const LOGIN = gql`
+    mutation login($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
+            username
+            password
+        }
+    }
+`
+
+export {ADD_USER, DELETE_USER, LOGIN}

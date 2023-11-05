@@ -19,7 +19,8 @@ const cache = new InMemoryCache({
 
 export const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  credentials: 'include',
 });
 
 export default function Page() {
@@ -28,7 +29,7 @@ export default function Page() {
       <ApolloProvider client={client}>
         <Header />
         <div>
-          <Users />
+          hi
         </div>
       </ApolloProvider>
     </>

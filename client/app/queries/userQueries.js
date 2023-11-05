@@ -10,4 +10,12 @@ const GET_USERS = gql`
     }
 `
 
-export {GET_USERS}
+const GET_USER = gql`
+    query getUser($username: String!) {
+        user(username: $username) {
+            username
+            password
+        }
+    }
+`
+export {GET_USERS, GET_USER}
