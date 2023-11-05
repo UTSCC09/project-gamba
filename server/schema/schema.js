@@ -1,7 +1,7 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLList, GraphQLNonNull } = require('graphql');
 const { compare, genSalt, hash } = require("bcrypt");
 const bcrypt = require('bcryptjs');
-const express = require('express');
+
 
 
 // Mongoose models
@@ -82,12 +82,12 @@ const mutation = new GraphQLObjectType({
 
                     if (match) {
                         console.log("User signed in");
-                        req.session.user = user;
-                        req.session.save()
-                        res.cookie('username', user.username, {
-                            maxAge: 60 * 60 * 24 * 7,
-                            httpOnly: true
-                        });
+                        // req.session.user = user;
+                        // req.session.save()
+                        // res.cookie('username', user.username, {
+                        //     maxAge: 60 * 60 * 24 * 7,
+                        //     httpOnly: false
+                        // });
                         console.log(user)
                         return user;
                     }

@@ -2,6 +2,8 @@
 import Header from './components/header'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Users from './components/Users';
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -24,6 +26,12 @@ export const client = new ApolloClient({
 });
 
 export default function Page() {
+  useEffect(() => {
+    // Access a specific cookie by its name
+    const myCookieValue = Cookies.get('username');
+    console.log('Cookie Value:', myCookieValue);
+  }, []);
+
   return (
     <>
       <ApolloProvider client={client}>

@@ -5,7 +5,7 @@ import { ADD_USER, LOGIN} from "../mutations/userMutations";
 import { GET_USER } from "../queries/userQueries";
 import {client} from "../page"
 import {useRouter} from 'next/navigation'
-
+import Cookies from "js-cookie";
 
 export default function Signup() {
   const router = useRouter()
@@ -70,6 +70,7 @@ export default function Signup() {
       setError('Incorrect Username or Password');
     } else {
       setError(null); // Clear any previous error
+      Cookies.set("username", username, { expires: 7 });
       router.push("/")
       // Proceed with signing in the user
     }
