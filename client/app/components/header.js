@@ -23,10 +23,9 @@ export default function Header() {
     return (
         <nav>
             <div>
-                <Link href="/signup">Signup</Link>
                 {isUserLoggedIn ? (
                     <button onClick={handleSignOut}>Signout</button>
-                ) : null}
+                ) : <Link href="/signup">Signup/Login</Link>}
 
             </div>
         </nav>
