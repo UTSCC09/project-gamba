@@ -37,7 +37,7 @@ export default function Page() {
       <ApolloProvider client={client}>
         <Header />
         <div>
-          hi
+          Landing page
         </div>
       </ApolloProvider>
     </>

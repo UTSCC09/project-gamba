@@ -71,7 +71,7 @@ export default function Signup() {
     } else {
       setError(null); // Clear any previous error
       Cookies.set("username", username, { expires: 7 });
-      router.push("/")
+      router.push("/home")
       // Proceed with signing in the user
     }
 

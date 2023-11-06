@@ -1,0 +1,59 @@
+/* header.css */
+
+/* Navbar styles */
+nav {
+    background-color: #333; /* Background color for the navbar */
+    color: #fff; /* Text color */
+    padding: 10px 0; /* Add some padding for spacing */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Navbar container styles */
+  nav > div {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Spacing between items */
+    margin: 0 20px;
+  }
+  
+  /* Button styles */
+  button {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    padding: 10px 20px; /* Padding around the button text */
+    border: none; /* Remove button border */
+    border-radius: 5px; /* Add some rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
+  
+  /* Link styles (for the "Signup/Login" button) */
+  a {
+    text-decoration: none; /* Remove underlines from links */
+    display: inline-block; /* Make the link a block element */
+    padding: 10px 20px; /* Padding around the link text */
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Link text color */
+    border: none; /* Remove link border */
+    border-radius: 5px; /* Add some rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+  }
+  
+  /* Link hover effect */
+  a:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
+  
+  /* Style the buttons inside a div */
+  .header_buttons {
+    display: flex;
+    gap: 20px; /* Spacing between buttons */
+    margin-left: auto; /* Push buttons to the right */
+  }
+  

@@ -2,10 +2,11 @@ import Link from 'next/link'
 import Cookies from "js-cookie";
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react';
+import "./header.css";
 
 export default function Header() {
     const router = useRouter()
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(Cookies.get('username'));
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
 
     // Listen for changes in the 'username' cookie
     useEffect(() => {
@@ -21,13 +22,21 @@ export default function Header() {
     }
 
     return (
-        <nav>
-            <div>
-                {isUserLoggedIn ? (
-                    <button onClick={handleSignOut}>Signout</button>
-                ) : <Link href="/signup">Signup/Login</Link>}
+        <div>
+            <nav>
+                <div>
+                    {isUserLoggedIn ? (
+                        <div className='header_buttons'>
+                            <button>Inventory</button>
+                            <button>Leaderboard</button>
+                            <button>Trade</button>
+                            <button onClick={handleSignOut}>Signout</button>
+                        </div>
 
-            </div>
-        </nav>
+                    ) : <Link href="/signup">Signup/Login</Link>}
+
+                </div>
+            </nav>
+        </div>
     )
 }
