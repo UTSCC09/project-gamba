@@ -7,6 +7,18 @@ const UserSchema = new mongoose.Schema({
     password:{
         type: String,
     },
+    total_price:{
+        type: Number,
+    },
+    inventory:{
+        type: Array,
+    },
+    status:{
+        type: Boolean,
+    },
+    friends:{
+        type: Array,
+    },
 });
 
 module.exports = mongoose.model('User', UserSchema);

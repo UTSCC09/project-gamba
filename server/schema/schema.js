@@ -1,20 +1,33 @@
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLList, GraphQLNonNull } = require('graphql');
+const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLSchema, GraphQLList, GraphQLNonNull } = require('graphql');
 const { compare, genSalt, hash } = require("bcrypt");
 const bcrypt = require('bcryptjs');
 
-
-
 // Mongoose models
 const User = require('../models/User');
+const Item = require('../models/Item');
 
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
         id: { type: GraphQLID },
         username: { type: GraphQLString },
-        password: { type: GraphQLString }
+        password: { type: GraphQLString },
+        total_price: { type: GraphQLInt },
+        inventory: {type: GraphQLList(ItemType)},
+        status: {type: GraphQLBoolean},
+        friends: {type: GraphQLList(GraphQLID)}
     })
 });
+
+const ItemType = new GraphQLObjectType({
+    name: 'Item',
+    fields: () => ({
+        id: { type: GraphQLID },
+        item_name: { type: GraphQLString },
+        price: { type: GraphQLInt },
+        quantity: { type: GraphQLInt}
+    })
+})
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -22,7 +35,7 @@ const RootQuery = new GraphQLObjectType({
         users: {
             type: new GraphQLList(UserType),
             resolve(parent, args) {
-                return User.find({});
+                return User.find({}).sort({ total_price: -1 }); //add max and possibly pagination
             }
         },
         user: {
@@ -51,9 +64,14 @@ const mutation = new GraphQLObjectType({
             resolve(parent, args) {
                 genSalt(10, function (err, salt) {
                     hash(args.password, salt, function (err, hash) {
+                        //user with default values
                         const user = new User({
                             username: args.username,
-                            password: hash
+                            password: hash,
+                            total_price: 0,
+                            inventory: [],
+                            status: false,
+                            friends: []
                         });
                         return user.save()
                     });
@@ -94,6 +112,7 @@ const mutation = new GraphQLObjectType({
 
                 }
                 console.log("User not found")
+                return false;
             }
         }
     }
