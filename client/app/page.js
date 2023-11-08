@@ -1,7 +1,6 @@
 "use client";
 import Header from './components/header'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import Users from './components/Users';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 
@@ -26,6 +25,7 @@ export const client = new ApolloClient({
 });
 
 export default function Page() {
+  
   useEffect(() => {
     // Access a specific cookie by its name
     const myCookieValue = Cookies.get('username');
