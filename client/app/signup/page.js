@@ -66,7 +66,7 @@ export default function Signup() {
     });
 
     // Check for authentication errors and set the error message accordingly
-    if (!data) {
+    if (data.login.username === null) {
       setError('Incorrect Username or Password');
     } else {
       setError(null); // Clear any previous error
@@ -86,7 +86,6 @@ export default function Signup() {
 
   return (
     <main>
-      <h>Signup</h>
       {isSignUp ? (
         <form className="message-form" onSubmit={handleSignup}>
           <div className="form-title">New User Sign Up</div>
