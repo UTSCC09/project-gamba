@@ -9,7 +9,7 @@
 .guns {
     display: flex;
     flex-direction: row;
-    transition: transform 5s;
+
 }
 
 .gun {

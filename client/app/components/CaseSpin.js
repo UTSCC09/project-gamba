@@ -4,13 +4,15 @@ import React, { useState, useEffect, useRef } from 'react';
 export default function CaseSpin({blue, purple, pink, red, knife}) {
     let [guns, setGuns] = useState([]);
     let [spinFinish, setSpin] = useState(false);
-    const [scrollPosition, setScrollPosition] = useState(0);
+    let [scrollPosition, setScrollPosition] = useState(0);
+    let [startSpin, setStartSpin] = useState(true);
     let selectedGun;
     const lineRef = useRef();
 
     async function spin() {
         await setGuns(createGuns(blue, purple, pink, red, knife));
         setSpin(true);
+        setStartSpin(true);
         const container = document.querySelector('.guns');
         const items = container.getElementsByClassName('gun');
         const itemWidth = items.length > 0 ? items[0].offsetWidth : 0;
@@ -43,9 +45,12 @@ export default function CaseSpin({blue, purple, pink, red, knife}) {
     };
 
     useEffect(() => {
-        if(!spinFinish)
+        if(!spinFinish){
+            handleLinePosition();
+            setStartSpin(false);
+        }
         // Call handleLinePosition whenever guns state updates
-        handleLinePosition();
+
     }, [spinFinish]);
 
     const handleLinePosition = () => {
@@ -76,7 +81,10 @@ export default function CaseSpin({blue, purple, pink, red, knife}) {
     return (
         <>
             <div className="gun-container">
-                <div className= "guns" style={{ transform: `translateX(-${scrollPosition}px)`}}>
+                <div className= "guns" style={
+                        !startSpin ? { left: `-${scrollPosition}px`} :
+                    { transform: `translateX(-${scrollPosition}px)`, transition: 'transform 5s'}
+                    }>
                     {guns.map((gun, index) => (
                         <div key={index}>
                             <div className = "gun">{gun} </div>

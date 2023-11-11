@@ -21,7 +21,7 @@ export default function Users() {
         <>
             {!loading && !error && (
                 <div>
-                    <div> You are currently rank: {yourRank}</div>
+                    <div> You are currently rank {yourRank}</div>
                     <table>
                         <thead>
                             <tr>
