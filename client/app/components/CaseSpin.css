@@ -23,7 +23,7 @@
 .line {
     position: absolute;
     left: 50%;
-    top: 266px;
+    top: 279px;
     bottom: 0;
     width: 2px;
     background-color: yellow;
@@ -54,10 +54,17 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    height: 200px;
+    display:flex;
+    flex-direction: column;
   }
   
   .modal-content {
     /* Add additional styling for the modal content as needed */
+    display:flex;
+    flex-direction: column;
+    justify-content:end;
+    height: 200px;
   }
   
   .modal-content button {
@@ -82,6 +89,7 @@
   .modal_buttons{
     display:flex;
     justify-content: center;
+
   }
 
   .result_modal-background {
@@ -100,5 +108,10 @@
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     width: 20%; 
+  }
+
+  .home_container{
+    display:flex;
+    justify-content: center;
   }
   

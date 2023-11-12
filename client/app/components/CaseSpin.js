@@ -1,11 +1,13 @@
 import "./CaseSpin.css";
 import React, { useState, useEffect, useRef } from 'react';
+import CaseModel from "./CaseModel";
+
 
 export default function CaseSpin({ blue, purple, pink, red, knife }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isResultModalOpen, setIsResultModalOpen] = useState(false);
     let [selectedGun, setSelectedGun] = useState(null);
-    
+
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -67,7 +69,7 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
             };
         };
 
-        const ResultModal = ({ onClose}) => {
+        const ResultModal = ({ onClose }) => {
             return (
                 <div className="result_modal-background">
                     <div className="result_modal-container">
@@ -79,7 +81,7 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
                         </div>
                     </div>
                 </div>
-                
+
             );
         };
 
@@ -149,9 +151,12 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
     return (
         <>
 
-            <button onClick={openModal}>Open Modal</button>
-
+            <CaseModel triggerSpin={openModal} />
+            <div className="home_container">
+                <h3>Click the case to start opening</h3>
+            </div>
             {isModalOpen && <Modal onClose={closeModal} />}
+
         </>
     )
 }
