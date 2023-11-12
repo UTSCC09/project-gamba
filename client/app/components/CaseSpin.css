@@ -11,6 +11,8 @@
     flex-direction: row;
 }
 
+
+
 .gun {
     height: 100px;
     width: 200px;
@@ -18,7 +20,10 @@
     border: 5px solid;
     border-color: black;
     display: flex;
+    justify-self: center;
 }
+
+
 
 .line {
     position: absolute;
@@ -57,7 +62,7 @@
   }
   
   .modal-content {
-    /* Add additional styling for the modal content as needed */
+    justify-content: center;
   }
   
   .modal-content button {
