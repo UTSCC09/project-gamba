@@ -19,6 +19,8 @@ export default function Home() {
     let red = ["r1", "r2"];
     let knife = ["k1", "k2", "k3", "k4", "k5"];
 
+    console.log(blue);
+
     return (
         <>
             <div>
