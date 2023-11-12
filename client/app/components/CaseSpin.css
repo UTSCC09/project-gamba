@@ -11,6 +11,8 @@
     flex-direction: row;
 }
 
+
+
 .gun {
     height: 100px;
     width: 200px;
@@ -18,7 +20,10 @@
     border: 5px solid;
     border-color: black;
     display: flex;
+    justify-self: center;
 }
+
+
 
 .line {
     position: absolute;
@@ -65,6 +70,7 @@
     flex-direction: column;
     justify-content:end;
     height: 200px;
+    justify-content: center;
   }
   
   .modal-content button {

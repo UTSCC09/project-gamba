@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import CaseModel from "./CaseModel";
 
 
-export default function CaseSpin({ blue, purple, pink, red, knife }) {
+export default function CaseSpin({caseName}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isResultModalOpen, setIsResultModalOpen] = useState(false);
     let [selectedGun, setSelectedGun] = useState(null);
@@ -36,7 +36,8 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
         async function spin() {
             setLine(true);
             setStartSpin(false);
-            await setGuns(createGuns(blue, purple, pink, red, knife));
+            await setGuns(createGuns(caseName));
+            
             setSpin(true);
             setStartSpin(true);
             const container = document.querySelector('.guns');
@@ -75,7 +76,9 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
                     <div className="result_modal-container">
                         <div className="modal-content">
                             <div className="selected-gun">
-                                Selected Gun: {selectedGun || 'None'}
+                                <img src={selectedGun.imageUrl} className="gun" 
+                                        style={{ backgroundColor: getBackgroundColor(selectedGun.skinName)}}></img>
+                                Selected Gun: {selectedGun.weaponName + " | " + selectedGun.skinName|| 'None'}
                             </div>
                             <button onClick={onClose}>Close</button>
                         </div>
@@ -83,6 +86,15 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
                 </div>
 
             );
+        };
+
+        const getBackgroundColor = (skinName) => {
+            if (skinName === 'Grotto') {
+            return 'lightblue';
+            } else if (skinName === 'ExampleSkinName2') {
+            return 'lightgreen';
+            }
+            return 'lightgray';
         };
 
         useEffect(() => {
@@ -112,7 +124,6 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
 
 
             if (itemIndex >= 0 && itemIndex < numItems) {
-                console.log(guns);
                 setSelectedGun(guns[itemIndex]);
             }
             openResultModal();
@@ -129,7 +140,8 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
                             }>
                                 {guns.map((gun, index) => (
                                     <div key={index}>
-                                        <div className="gun">{gun} </div>
+                                        <img src={gun.imageUrl} className="gun" 
+                                            style={{ backgroundColor: getBackgroundColor(gun.skinName)}}></img>
                                     </div>
                                 ))}
                             </div>
@@ -161,11 +173,34 @@ export default function CaseSpin({ blue, purple, pink, red, knife }) {
     )
 }
 
-function createGuns(blue, purple, pink, red, knife) {
+function createGuns(caseName) {
+    let knives;
+    let weaponCase = require(`../../cases/${caseName}`);
+    let blue = weaponCase.blue;
+    let purple = weaponCase.purple;
+    let pink = weaponCase.pink;
+    let red = weaponCase.red;
+    
+    if(caseName.includes("chroma")) {
+        knives = require("../../cases/chromaKnives");
+        knives = knives.knife;
+    }
+    else if (caseName.includes("gamma")) {
+        knives = require("../../cases/gammaKnives");
+        knives = knives.knife;
+    }
+    else
+        knives = weaponCase.knife;
+
     let rng1, rng2;
     const blueSize = blue.length;
-    const knifeSize = knife.length;
+    const purpleSize = purple.length;
+    const knifeSize = knives.length;
+    console.log(knives);
+    console.log(blueSize, purpleSize, knifeSize);
     let guns = [];
+
+
 
     for (let i = 0; i < 100; i++) {
         rng1 = Math.random();
@@ -174,7 +209,7 @@ function createGuns(blue, purple, pink, red, knife) {
             guns.push(blue[rng2]);
         }
         else if (rng1 <= 0.96) {
-            rng2 = Math.floor(Math.random() * 4);
+            rng2 = Math.floor(Math.random() * purpleSize);
             guns.push(purple[rng2]);
         }
         else if (rng1 <= 0.99) {
@@ -187,8 +222,9 @@ function createGuns(blue, purple, pink, red, knife) {
         }
         else {
             rng2 = Math.floor(Math.random() * knifeSize);
-            guns.push(knife[rng2]);
+            guns.push(knives[rng2]);
         }
     }
+    console.log(guns);
     return guns;
 }
