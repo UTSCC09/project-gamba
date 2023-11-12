@@ -27,4 +27,13 @@ const LOGIN = gql`
     }
 `
 
-export {ADD_USER, DELETE_USER, LOGIN}
+const ADD_ITEM = gql`
+    mutation addItem($username: String!, $gun: Object!) {
+        addItem(username: $username, gun: $gun) {
+            username
+            gun
+        }
+    }
+`
+
+export {ADD_USER, DELETE_USER, LOGIN, ADD_ITEM}

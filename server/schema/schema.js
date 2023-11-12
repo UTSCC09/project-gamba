@@ -13,21 +13,23 @@ const UserType = new GraphQLObjectType({
         username: { type: GraphQLString },
         password: { type: GraphQLString },
         total_price: { type: GraphQLInt },
-        inventory: {type: GraphQLList(ItemType)},
-        status: {type: GraphQLBoolean},
-        friends: {type: GraphQLList(GraphQLID)}
+        inventory: { type: GraphQLList(ItemType) },
+        status: { type: GraphQLBoolean },
+        friends: { type: GraphQLList(GraphQLID) }
     })
 });
 
 const ItemType = new GraphQLObjectType({
     name: 'Item',
     fields: () => ({
-        id: { type: GraphQLID },
-        item_name: { type: GraphQLString },
+        weaponName: { type: GraphQLString },
+        skinName: { type: GraphQLString },
+        quality: { type: GraphQLString },
         price: { type: GraphQLInt },
-        quantity: { type: GraphQLInt}
+        quantity: { type: GraphQLInt }
     })
 })
+
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -114,9 +116,47 @@ const mutation = new GraphQLObjectType({
                 console.log("User not found")
                 return false;
             }
-        }
+        },
+        addItem: {
+            type: UserType,
+            args: {
+                username: { type: GraphQLNonNull(GraphQLString) },
+                weaponName: { type: GraphQLNonNull(GraphQLString) },
+                skinName: { type: GraphQLNonNull(GraphQLString) },
+                quality: { type: GraphQLNonNull(GraphQLString) },
+                price: { type: GraphQLNonNull(GraphQLInt) }
+            },
+            resolve(parent, args) {
+                const user = User.findOne({ username: args.username });
+                if (user) {
+                    const gun = user.collection('inventory').find({
+                        weaponName: args.weaponName, skinName: args.skinName, quality: args.quality});
+                    if (gun) {
+                        user.collection('inventory').updateOne(
+                            { weaponName: gun.weaponName, skinName: gun.skinName, quality: gun.quality },
+                            { $set: { "quantity": gun.quantity++ } }
+                        );
+                    }
+                    else {
+                        const item = new ItemType({
+                            weaponName: args.weaponName,
+                            skinName: args.skinName,
+                            quality: args.quality,
+                            price: args.price,
+                            quantity: 1
+                        });
+                        user.inventory.push(item);
+                        user.save();
+                    }
+                }
+            }
+        },
     }
 });
+
+
+
+
 
 module.exports = new GraphQLSchema({
     query: RootQuery,

@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 
 const ItemSchema = new mongoose.Schema({
-    item_name:{
+    weaponName:{
+        type: String,
+    },
+    skinName:{
+        type: String,
+    },
+    quality:{
         type: String,
     },
     price:{
