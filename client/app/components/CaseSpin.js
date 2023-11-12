@@ -1,13 +1,17 @@
+"use client";
 import "./CaseSpin.css";
 import React, { useState, useEffect, useRef } from 'react';
 import CaseModel from "./CaseModel";
+import { ADD_ITEM } from "../mutations/userMutations";
+import { useMutation } from '@apollo/client'
+import Cookies from "js-cookie";
+import { client } from "../page"
 
 
-export default function CaseSpin({caseName}) {
+export default function CaseSpin({ caseName }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isResultModalOpen, setIsResultModalOpen] = useState(false);
     let [selectedGun, setSelectedGun] = useState(null);
-
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -37,7 +41,7 @@ export default function CaseSpin({caseName}) {
             setLine(true);
             setStartSpin(false);
             await setGuns(createGuns(caseName));
-            
+
             setSpin(true);
             setStartSpin(true);
             const container = document.querySelector('.guns');
@@ -71,14 +75,28 @@ export default function CaseSpin({caseName}) {
         };
 
         const ResultModal = ({ onClose }) => {
+            console.log(selectedGun.weaponName, selectedGun.skinName, selectedGun.quality, selectedGun.price)
+
+            client.mutate({
+                variables: {
+                    username: Cookies.get('username'),
+                    weaponName: selectedGun.weaponName,
+                    skinName: selectedGun.skinName,
+                    quality: "Factory New",
+                    price: 0,
+                },
+                mutation: ADD_ITEM,
+            });
+
+
             return (
                 <div className="result_modal-background">
                     <div className="result_modal-container">
                         <div className="modal-content">
                             <div className="selected-gun">
-                                <img src={selectedGun.imageUrl} className="gun" 
-                                        style={{ backgroundColor: getBackgroundColor(selectedGun.skinName)}}></img>
-                                Selected Gun: {selectedGun.weaponName + " | " + selectedGun.skinName|| 'None'}
+                                <img src={selectedGun.imageUrl} className="gun"
+                                    style={{ backgroundColor: getBackgroundColor(selectedGun.skinName) }}></img>
+                                Selected Gun: {selectedGun.weaponName + " | " + selectedGun.skinName || 'None'}
                             </div>
                             <button onClick={onClose}>Close</button>
                         </div>
@@ -90,9 +108,9 @@ export default function CaseSpin({caseName}) {
 
         const getBackgroundColor = (skinName) => {
             if (skinName === 'Grotto') {
-            return 'lightblue';
+                return 'lightblue';
             } else if (skinName === 'ExampleSkinName2') {
-            return 'lightgreen';
+                return 'lightgreen';
             }
             return 'lightgray';
         };
@@ -140,8 +158,8 @@ export default function CaseSpin({caseName}) {
                             }>
                                 {guns.map((gun, index) => (
                                     <div key={index}>
-                                        <img src={gun.imageUrl} className="gun" 
-                                            style={{ backgroundColor: getBackgroundColor(gun.skinName)}}></img>
+                                        <img src={gun.imageUrl} className="gun"
+                                            style={{ backgroundColor: getBackgroundColor(gun.skinName) }}></img>
                                     </div>
                                 ))}
                             </div>
@@ -180,8 +198,8 @@ function createGuns(caseName) {
     let purple = weaponCase.purple;
     let pink = weaponCase.pink;
     let red = weaponCase.red;
-    
-    if(caseName.includes("chroma")) {
+
+    if (caseName.includes("chroma")) {
         knives = require("../../cases/chromaKnives");
         knives = knives.knife;
     }

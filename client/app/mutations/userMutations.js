@@ -28,12 +28,12 @@ const LOGIN = gql`
 `
 
 const ADD_ITEM = gql`
-    mutation addItem($username: String!, $gun: Object!) {
-        addItem(username: $username, gun: $gun) {
+    mutation addItem($username: String!, $weaponName: String!, $skinName: String!, $quality: String!, $price: Int!) {
+        addItem(username: $username, weaponName: $weaponName, skinName: $skinName, quality: $quality, price: $price) {
             username
-            gun
         }
     }
 `
+
 
 export {ADD_USER, DELETE_USER, LOGIN, ADD_ITEM}
