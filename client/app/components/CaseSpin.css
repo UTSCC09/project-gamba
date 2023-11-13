@@ -28,7 +28,7 @@
 .line {
     position: absolute;
     left: 50%;
-    top: 265px;
+    top: 282px;
     bottom: 0;
     width: 2px;
     background-color: yellow;
@@ -37,8 +37,12 @@
 }
 
 .selected-gun {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     margin-top: 10px;
+    gap: 3px;
 }
 
 .modal-background {
@@ -69,7 +73,7 @@
     display:flex;
     flex-direction: column;
     justify-content:flex-end;
-    height: 200px;
+    height: 250px;
     justify-content: center;
   }
   
@@ -95,7 +99,7 @@
   .modal_buttons{
     display:flex;
     justify-content: center;
-
+    gap: 10px;
   }
 
   .result_modal-background {
