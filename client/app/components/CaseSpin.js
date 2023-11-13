@@ -95,8 +95,8 @@ export default function CaseSpin({ caseName }) {
                     <div className="result_modal-container">
                         <div className="modal-content">
                             <div className="selected-gun">
-                                <img src={selectedGun.imageUrl} className="gun" 
-                                        style={{ backgroundColor: getBackgroundColor(selectedGun.rarity)}}></img>
+                                <img src={selectedGun.imageUrl} className="gun"
+                                    style={{ backgroundColor: getBackgroundColor(selectedGun.rarity) }}></img>
                                 {selectedGun.weaponName + " | " + selectedGun.skinName || 'None'}
                                 <div>{selectedGun.quality}</div>
                                 <div>${selectedGun.price}</div>
@@ -147,24 +147,24 @@ export default function CaseSpin({ caseName }) {
             let price;
             let rng1 = Math.random();
             let rng2 = Math.random();
-            if(rng2 <= 0.1) {
+            if (rng2 <= 0.1) {
                 rng2 = 5;
                 weaponName = "StatTrak™ ";
             }
             else rng2 = 0;
-            if(rng1 <= 0.56) {
+            if (rng1 <= 0.56) {
                 quality = "Battle-Scarred";
                 price = guns[itemIndex].prices[rng2];
             }
-            else if(rng1 <= 0.63) {
+            else if (rng1 <= 0.63) {
                 quality = "Well-Worn";
                 price = guns[itemIndex].prices[1 + rng2];
             }
-            else if(rng1 <= 0.85) {
+            else if (rng1 <= 0.85) {
                 quality = "Field-Tested";
                 price = guns[itemIndex].prices[2 + rng2];
             }
-            else if(rng1 <= 0.93) {
+            else if (rng1 <= 0.93) {
                 quality = "Minimal Wear";
                 price = guns[itemIndex].prices[3 + rng2];
             }
@@ -172,7 +172,7 @@ export default function CaseSpin({ caseName }) {
                 quality = "Factory New";
                 price = guns[itemIndex].prices[4 + rng2];
             }
-        
+
             const caseReward = {
                 weaponName: weaponName + guns[itemIndex].weaponName,
                 skinName: guns[itemIndex].skinName,
@@ -209,12 +209,15 @@ export default function CaseSpin({ caseName }) {
                             {line ? <div ref={lineRef} className="line"></div> : null}
                         </div>
                         <div className="selected-gun">
-                            {isResultModalOpen && <ResultModal onClose={() => {closeResultModal(), insertItem()}} />}
+                            {isResultModalOpen && <ResultModal onClose={() => { closeResultModal(), insertItem() }} />}
                         </div>
-                        <div className="modal_buttons">
-                            <button onClick={spin}>Spin</button>
-                            <button onClick={onClose}>Close</button>
-                        </div>
+                        {!spinFinish && !isResultModalOpen? (
+                            <div className="modal_buttons">
+                                <button onClick={spin}>Spin</button>
+                                <button onClick={onClose}>Close</button>
+                            </div>
+                        ) : null}
+
                     </div>
                 </div>
             </div>
