@@ -138,7 +138,7 @@ const mutation = new GraphQLObjectType({
                         );
                     }
                     else {
-                        const item = new ItemType({
+                        const item = new Item({
                             weaponName: args.weaponName,
                             skinName: args.skinName,
                             quality: args.quality,

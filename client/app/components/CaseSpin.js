@@ -75,28 +75,30 @@ export default function CaseSpin({ caseName }) {
         };
 
         const ResultModal = ({ onClose }) => {
-            console.log(selectedGun.weaponName, selectedGun.skinName, selectedGun.quality, selectedGun.price)
-
+            console.log(selectedGun.weaponName, selectedGun.skinName, selectedGun.quality, selectedGun.price, selectedGun.rarity, selectedGun.case)
             client.mutate({
                 variables: {
                     username: Cookies.get('username'),
                     weaponName: selectedGun.weaponName,
                     skinName: selectedGun.skinName,
-                    quality: "Factory New",
-                    price: 0,
+                    quality: selectedGun.quality,
+                    price: selectedGun.price,
+                    rarity: selectedGun.rarity,
+                    case: selectedGun.case,
                 },
                 mutation: ADD_ITEM,
             });
-
 
             return (
                 <div className="result_modal-background">
                     <div className="result_modal-container">
                         <div className="modal-content">
                             <div className="selected-gun">
-                                <img src={selectedGun.imageUrl} className="gun"
-                                    style={{ backgroundColor: getBackgroundColor(selectedGun.skinName) }}></img>
-                                Selected Gun: {selectedGun.weaponName + " | " + selectedGun.skinName || 'None'}
+                                <img src={selectedGun.imageUrl} className="gun" 
+                                        style={{ backgroundColor: getBackgroundColor(selectedGun.rarity)}}></img>
+                                {selectedGun.weaponName + " | " + selectedGun.skinName || 'None'}
+                                <div>{selectedGun.quality}</div>
+                                <div>{selectedGun.price}</div>
                             </div>
                             <button onClick={onClose}>Close</button>
                         </div>
@@ -106,13 +108,12 @@ export default function CaseSpin({ caseName }) {
             );
         };
 
-        const getBackgroundColor = (skinName) => {
-            if (skinName === 'Grotto') {
-                return 'lightblue';
-            } else if (skinName === 'ExampleSkinName2') {
-                return 'lightgreen';
-            }
-            return 'lightgray';
+        const getBackgroundColor = (rarity) => {
+            if (rarity === 'blue') return 'blue';
+            else if (rarity === 'purple') return 'blueviolet';
+            else if (rarity === 'pink') return 'hotpink';
+            else if (rarity === 'red') return 'red';
+            return 'yellow';
         };
 
         useEffect(() => {
@@ -140,9 +141,55 @@ export default function CaseSpin({ caseName }) {
             const numItems = items.length;
             const itemIndex = Math.floor(linePosition / itemWidth);
 
+            let weaponName = "";
+            let quality = "";
+            let price = "$";
+            let rng1 = Math.random();
+            let rng2 = Math.random();
+            if(rng2 <= 0.1) {
+                rng2 = 5;
+                weaponName = "StatTrak™ ";
+            }
+            else rng2 = 0;
+            if(rng1 <= 0.56) {
+                quality = "Battle-Scarred";
+                price += guns[itemIndex].prices[rng2];
+            }
+            else if(rng1 <= 0.63) {
+                quality = "Well-Worn";
+                price += guns[itemIndex].prices[1 + rng2];
+            }
+            else if(rng1 <= 0.85) {
+                quality = "Field-Tested";
+                price += guns[itemIndex].prices[2 + rng2];
+            }
+            else if(rng1 <= 0.93) {
+                quality = "Minimal Wear";
+                price += guns[itemIndex].prices[3 + rng2];
+            }
+            else {
+                quality = "Factory New";
+                price += guns[itemIndex].prices[4 + rng2];
+            }
+
+            if(price === "$0") {
+                if(!rng2) price = "Estimated Value: " + guns[itemIndex].priceRange;
+                else price = "Estimated Value: " + guns[itemIndex].statRange;
+            }
+        
+            const caseReward = {
+                weaponName: weaponName + guns[itemIndex].weaponName,
+                skinName: guns[itemIndex].skinName,
+                quality: quality,
+                price: price,
+                rarity: guns[itemIndex].rarity,
+                case: guns[itemIndex].case,
+                imageUrl: guns[itemIndex].imageUrl
+            }
+
 
             if (itemIndex >= 0 && itemIndex < numItems) {
-                setSelectedGun(guns[itemIndex]);
+                setSelectedGun(caseReward);
             }
             openResultModal();
         };
@@ -159,7 +206,7 @@ export default function CaseSpin({ caseName }) {
                                 {guns.map((gun, index) => (
                                     <div key={index}>
                                         <img src={gun.imageUrl} className="gun"
-                                            style={{ backgroundColor: getBackgroundColor(gun.skinName) }}></img>
+                                            style={{ backgroundColor: getBackgroundColor(gun.rarity) }}></img>
                                     </div>
                                 ))}
                             </div>
@@ -214,8 +261,6 @@ function createGuns(caseName) {
     const blueSize = blue.length;
     const purpleSize = purple.length;
     const knifeSize = knives.length;
-    console.log(knives);
-    console.log(blueSize, purpleSize, knifeSize);
     let guns = [];
 
 
@@ -243,6 +288,5 @@ function createGuns(caseName) {
             guns.push(knives[rng2]);
         }
     }
-    console.log(guns);
     return guns;
 }
