@@ -28,7 +28,7 @@ const LOGIN = gql`
 `
 
 const ADD_ITEM = gql`
-    mutation addItem($username: String!, $weaponName: String!, $skinName: String!, $quality: String!, $price: Int!) {
+    mutation addItem($username: String!, $weaponName: String!, $skinName: String!, $quality: String!, $price: Float!) {
         addItem(username: $username, weaponName: $weaponName, skinName: $skinName, quality: $quality, price: $price) {
             username
         }

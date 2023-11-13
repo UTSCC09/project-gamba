@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLSchema, GraphQLList, GraphQLNonNull } = require('graphql');
+const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLFloat } = require('graphql');
 const { compare, genSalt, hash } = require("bcrypt");
 const bcrypt = require('bcryptjs');
 
@@ -23,7 +23,7 @@ const UserType = new GraphQLObjectType({
         id: { type: GraphQLID },
         username: { type: GraphQLString },
         password: { type: GraphQLString },
-        total_price: { type: GraphQLInt },
+        total_price: { type: GraphQLFloat },
         inventory: { type: GraphQLList(ItemType) },
         status: { type: GraphQLBoolean },
         friends: { type: GraphQLList(GraphQLID) }
@@ -123,20 +123,27 @@ const mutation = new GraphQLObjectType({
                 weaponName: { type: GraphQLNonNull(GraphQLString) },
                 skinName: { type: GraphQLNonNull(GraphQLString) },
                 quality: { type: GraphQLNonNull(GraphQLString) },
-                price: { type: GraphQLNonNull(GraphQLInt) }
+                price: { type: GraphQLNonNull(GraphQLFloat) }
             },
             async resolve(parent, args) {
                 const user = await User.findOne({ username: args.username });
                 if (user) {
-                    const gun = user.inventory.findIndex((item) =>
+                    user.total_price += args.price;
+                    const gunIndex = user.inventory.findIndex((item) =>
                         item.weaponName === args.weaponName &&
                         item.skinName === args.skinName &&
                         item.quality === args.quality
                     );
-                    if (gun !== -1) {
+                    if (gunIndex != -1) {
                         // If the item already exists in the inventory, update the quantity
-                        console.log(user.inventory[gun].quantity)
-                        user.inventory[gun].quantity= user.inventory[gun].quantity + 1;
+                        const item = new Item({
+                            weaponName: args.weaponName,
+                            skinName: args.skinName,
+                            quality: args.quality,
+                            price: args.price,
+                            quantity: user.inventory[gunIndex].quantity + 1
+                        });
+                        user.inventory[gunIndex] = item;
                     }
                     else {
                         const item = new Item({
@@ -149,9 +156,7 @@ const mutation = new GraphQLObjectType({
                         user.inventory.push(item);
                     }
                     // Save the user with the updated inventory
-                    console.log(user.inventory[gun].quantity)
                     await user.save();
-                    
                     return user;
                 }
             }

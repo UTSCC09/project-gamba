@@ -29,6 +29,21 @@ export default function CaseSpin({ caseName }) {
         setIsResultModalOpen(false);
     };
 
+    const insertItem = () => {
+        client.mutate({
+            variables: {
+                username: Cookies.get('username'),
+                weaponName: selectedGun.weaponName,
+                skinName: selectedGun.skinName,
+                quality: selectedGun.quality,
+                price: selectedGun.price,
+                rarity: selectedGun.rarity,
+                case: selectedGun.case,
+            },
+            mutation: ADD_ITEM,
+        });
+    }
+
     const Modal = ({ onClose }) => {
         let [guns, setGuns] = useState([]);
         let [spinFinish, setSpin] = useState(false);
@@ -75,20 +90,6 @@ export default function CaseSpin({ caseName }) {
         };
 
         const ResultModal = ({ onClose }) => {
-            console.log(selectedGun.weaponName, selectedGun.skinName, selectedGun.quality, selectedGun.price, selectedGun.rarity, selectedGun.case)
-            client.mutate({
-                variables: {
-                    username: Cookies.get('username'),
-                    weaponName: selectedGun.weaponName,
-                    skinName: selectedGun.skinName,
-                    quality: selectedGun.quality,
-                    price: selectedGun.price,
-                    rarity: selectedGun.rarity,
-                    case: selectedGun.case,
-                },
-                mutation: ADD_ITEM,
-            });
-
             return (
                 <div className="result_modal-background">
                     <div className="result_modal-container">
@@ -98,7 +99,7 @@ export default function CaseSpin({ caseName }) {
                                         style={{ backgroundColor: getBackgroundColor(selectedGun.rarity)}}></img>
                                 {selectedGun.weaponName + " | " + selectedGun.skinName || 'None'}
                                 <div>{selectedGun.quality}</div>
-                                <div>{selectedGun.price}</div>
+                                <div>${selectedGun.price}</div>
                             </div>
                             <button onClick={onClose}>Close</button>
                         </div>
@@ -143,7 +144,7 @@ export default function CaseSpin({ caseName }) {
 
             let weaponName = "";
             let quality = "";
-            let price = "$";
+            let price;
             let rng1 = Math.random();
             let rng2 = Math.random();
             if(rng2 <= 0.1) {
@@ -153,28 +154,23 @@ export default function CaseSpin({ caseName }) {
             else rng2 = 0;
             if(rng1 <= 0.56) {
                 quality = "Battle-Scarred";
-                price += guns[itemIndex].prices[rng2];
+                price = guns[itemIndex].prices[rng2];
             }
             else if(rng1 <= 0.63) {
                 quality = "Well-Worn";
-                price += guns[itemIndex].prices[1 + rng2];
+                price = guns[itemIndex].prices[1 + rng2];
             }
             else if(rng1 <= 0.85) {
                 quality = "Field-Tested";
-                price += guns[itemIndex].prices[2 + rng2];
+                price = guns[itemIndex].prices[2 + rng2];
             }
             else if(rng1 <= 0.93) {
                 quality = "Minimal Wear";
-                price += guns[itemIndex].prices[3 + rng2];
+                price = guns[itemIndex].prices[3 + rng2];
             }
             else {
                 quality = "Factory New";
-                price += guns[itemIndex].prices[4 + rng2];
-            }
-
-            if(price === "$0") {
-                if(!rng2) price = "Estimated Value: " + guns[itemIndex].priceRange;
-                else price = "Estimated Value: " + guns[itemIndex].statRange;
+                price = guns[itemIndex].prices[4 + rng2];
             }
         
             const caseReward = {
@@ -213,7 +209,7 @@ export default function CaseSpin({ caseName }) {
                             {line ? <div ref={lineRef} className="line"></div> : null}
                         </div>
                         <div className="selected-gun">
-                            {isResultModalOpen && <ResultModal onClose={closeResultModal} />}
+                            {isResultModalOpen && <ResultModal onClose={() => {closeResultModal(), insertItem()}} />}
                         </div>
                         <div className="modal_buttons">
                             <button onClick={spin}>Spin</button>
