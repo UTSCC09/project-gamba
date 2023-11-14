@@ -201,8 +201,12 @@ export default function CaseSpin({ caseName }) {
                             }>
                                 {guns.map((gun, index) => (
                                     <div key={index}>
-                                        <img src={gun.imageUrl} className="gun"
-                                            style={{ backgroundColor: getBackgroundColor(gun.rarity) }}></img>
+                                        {gun.rarity === 'yellow' ?
+                                            (<img src={"https://www.digiseller.ru/preview/599286/p1_2134247_b8bd3e19.png"} className="gun" style={{ backgroundColor: getBackgroundColor(gun.rarity) }}></img>)
+                                            :
+                                            (<img src={gun.imageUrl} className="gun" style={{ backgroundColor: getBackgroundColor(gun.rarity) }}></img>)
+                                        }
+
                                     </div>
                                 ))}
                             </div>
@@ -211,7 +215,7 @@ export default function CaseSpin({ caseName }) {
                         <div className="selected-gun">
                             {isResultModalOpen && <ResultModal onClose={() => { closeResultModal(), insertItem() }} />}
                         </div>
-                        {!spinFinish && !isResultModalOpen? (
+                        {!spinFinish && !isResultModalOpen ? (
                             <div className="modal_buttons">
                                 <button onClick={spin}>Spin</button>
                                 <button onClick={onClose}>Close</button>
@@ -228,9 +232,7 @@ export default function CaseSpin({ caseName }) {
         <>
 
             <CaseModel triggerSpin={openModal} />
-            <div className="home_container">
-                <h3>Click the case to start opening</h3>
-            </div>
+            
             {isModalOpen && <Modal onClose={closeModal} />}
 
         </>

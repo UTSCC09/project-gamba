@@ -1,4 +1,23 @@
-.main{
-    height:78vh;
-    margin: 0;
+.main {
+    position: relative;
+    height: 89vh;
+    padding-bottom: 0;
+    top: -210px;
 }
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    height: 100%;
+}
+
+mesh{
+    height: 78vh;
+}
+
+
+

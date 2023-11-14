@@ -1,0 +1,16 @@
+.case_text{
+    display: flex;
+    flex-direction: column;
+    height: 0; /* Set the height of .case_text to 100% of the viewport height */
+    margin: 0;
+}
+
+.home_container{
+    display:flex;
+    justify-content: center;
+  }
+
+  .home_wrapper{
+    position: relative;
+    top: -200px;
+  }
