@@ -12,8 +12,11 @@ const ItemType = new GraphQLObjectType({
         weaponName: { type: GraphQLString },
         skinName: { type: GraphQLString },
         quality: { type: GraphQLString },
-        price: { type: GraphQLInt },
-        quantity: { type: GraphQLInt }
+        price: { type: GraphQLFloat },
+        quantity: { type: GraphQLInt },
+        rarity: { type: GraphQLString },
+        image: { type: GraphQLString },
+        case: { type: GraphQLString },
     })
 })
 
@@ -47,7 +50,7 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 return User.findOne({ username: args.username });
             }
-        }
+        },
     }
 });
 
@@ -123,7 +126,10 @@ const mutation = new GraphQLObjectType({
                 weaponName: { type: GraphQLNonNull(GraphQLString) },
                 skinName: { type: GraphQLNonNull(GraphQLString) },
                 quality: { type: GraphQLNonNull(GraphQLString) },
-                price: { type: GraphQLNonNull(GraphQLFloat) }
+                price: { type: GraphQLNonNull(GraphQLFloat) },
+                rarity: { type: GraphQLNonNull(GraphQLString) },
+                image: { type: GraphQLNonNull(GraphQLString) },
+                case: { type: GraphQLNonNull(GraphQLString) },
             },
             async resolve(parent, args) {
                 const user = await User.findOne({ username: args.username });
@@ -141,7 +147,10 @@ const mutation = new GraphQLObjectType({
                             skinName: args.skinName,
                             quality: args.quality,
                             price: args.price,
-                            quantity: user.inventory[gunIndex].quantity + 1
+                            quantity: user.inventory[gunIndex].quantity + 1,
+                            rarity: args.rarity,
+                            image: args.image,
+                            case: args.case
                         });
                         user.inventory[gunIndex] = item;
                     }
@@ -151,7 +160,10 @@ const mutation = new GraphQLObjectType({
                             skinName: args.skinName,
                             quality: args.quality,
                             price: args.price,
-                            quantity: 1
+                            quantity: 1,
+                            rarity: args.rarity,
+                            image: args.image,
+                            case: args.case
                         });
                         user.inventory.push(item);
                     }

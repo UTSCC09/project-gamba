@@ -1,0 +1,32 @@
+/* Add this CSS to your stylesheets */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+  }
+  
+  .inventory-item {
+    border: 1px solid #ddd;
+    padding: 16px;
+    text-align: center;
+    margin: 5px;
+  }
+  
+  .inventory-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100px; /* Adjust the max height as needed */
+    margin-bottom: 8px;
+  }
+  
+  /* Combine skin and weapon name, and make text smaller */
+  .inventory-item p {
+    margin: 0;
+    font-size: 14px; /* Adjust the font size as needed */
+  }
+  
+  .inventory-item .combined-names {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  

@@ -12,6 +12,7 @@ FEATURES
 
 BUGS
 - leaderboard realtime updates (graphql subscription or polling)
+- inventory realtime updates
 - fix user sessions/cookies/security in general
 - case model (import gltf file using three.js)
 - fix weapon hitbox near edges

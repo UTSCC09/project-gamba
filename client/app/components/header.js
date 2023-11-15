@@ -28,7 +28,7 @@ export default function Header() {
                     {isUserLoggedIn ? (
                         <div className='header_buttons'>
                             <Link href="/home"> Home </Link>
-                            <button>Inventory</button>
+                            <Link href="/inventory"> Inventory </Link>
                             <Link href="/leaderboard"> Leaderboard </Link>
                             <button>Trade</button>
                             <button onClick={handleSignOut}>Signout</button>

@@ -38,6 +38,7 @@ export default function CaseSpin({ caseName }) {
                 quality: selectedGun.quality,
                 price: selectedGun.price,
                 rarity: selectedGun.rarity,
+                image: selectedGun.imageUrl,
                 case: selectedGun.case,
             },
             mutation: ADD_ITEM,

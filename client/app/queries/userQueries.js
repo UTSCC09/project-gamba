@@ -18,4 +18,21 @@ const GET_USER = gql`
     }
 `;
 
-export {GET_USERS, GET_USER}
+const GET_ITEMS = gql`
+    query getItems($username: String!) {
+        user(username: $username) {
+            inventory {
+              weaponName
+              skinName
+              quality
+              price
+              quantity
+              rarity
+              image
+              case
+            }
+          }
+    }
+`
+
+export {GET_USERS, GET_USER, GET_ITEMS}

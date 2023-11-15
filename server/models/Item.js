@@ -16,6 +16,15 @@ const ItemSchema = new mongoose.Schema({
     quantity:{
         type: Number,
     },
+    rarity:{
+        type: String,
+    },
+    image:{
+        type: String,
+    },
+    case:{
+        type: String,
+    },
 });
 
 module.exports = mongoose.model('Item', ItemSchema);

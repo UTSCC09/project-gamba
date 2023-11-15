@@ -28,6 +28,8 @@
     "express-graphql": "^0.12.0",
     "express-session": "^1.17.3",
     "graphql": "^15.8.0",
+    "graphql-fields": "^2.0.3",
+    "graphql-parse-resolve-info": "^4.13.0",
     "js-cookie": "^3.0.5",
     "mongoose": "^8.0.0",
     "next": "^14.0.1"
