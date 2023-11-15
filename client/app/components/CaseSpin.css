@@ -120,11 +120,4 @@
     width: 20%; 
   }
 
-
-
-  .home_wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
   

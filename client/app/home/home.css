@@ -12,5 +12,11 @@
 
   .home_wrapper{
     position: relative;
-    top: -200px;
+    top: -170px;
+  }
+  
+  .home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }

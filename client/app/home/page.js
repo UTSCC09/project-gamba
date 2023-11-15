@@ -38,7 +38,7 @@ export default function Home() {
     return (
         <>
             {isUserLoggedIn ? (
-                <>
+                <div className='home'>
                     <Header />
                     <CaseSpin caseName={Case} />
                     <div className='case_text'>
@@ -53,7 +53,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                </>
+                </div>
             ) : <div>You are not authenticated. Please log in.</div>}
         </>
     )

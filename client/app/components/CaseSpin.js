@@ -232,7 +232,6 @@ export default function CaseSpin({ caseName }) {
         <>
 
             <CaseModel triggerSpin={openModal} />
-            
             {isModalOpen && <Modal onClose={closeModal} />}
 
         </>
