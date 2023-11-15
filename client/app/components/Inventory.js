@@ -70,24 +70,6 @@ export default function Inventory() {
                     </select>
                 </label>
                 <label>
-                    Case Name:
-                    {/* Dropdown for case name */}
-                    <select
-                        value={filters.caseName}
-                        onChange={(e) => handleFilterChange('caseName', e.target.value)}
-                    >
-                        {/* Add options based on available case names */}
-                        <option value="">All</option>
-                        <option value="chroma">chroma</option>
-                        <option value="chroma2">chroma2</option>
-                        <option value="chroma3">chroma3</option>
-                        <option value="falchion">falchion</option>
-                        <option value="gamma">gamma</option>
-                        <option value="gamma2">gamma2</option>
-                        {/* Add more options as needed */}
-                    </select>
-                </label>
-                <label>
                     Rarity:
                     {/* Dropdown for rarity */}
                     <select
@@ -118,6 +100,24 @@ export default function Inventory() {
                         <option value="Field-Tested">Field-Tested</option>
                         <option value="Minimal Wear">Minimal Wear</option>
                         <option value="Factory New">Factory New</option>
+                        {/* Add more options as needed */}
+                    </select>
+                </label>
+                <label>
+                    Case:
+                    {/* Dropdown for case name */}
+                    <select
+                        value={filters.caseName}
+                        onChange={(e) => handleFilterChange('caseName', e.target.value)}
+                    >
+                        {/* Add options based on available case names */}
+                        <option value="">All</option>
+                        <option value="chroma">chroma</option>
+                        <option value="chroma2">chroma2</option>
+                        <option value="chroma3">chroma3</option>
+                        <option value="falchion">falchion</option>
+                        <option value="gamma">gamma</option>
+                        <option value="gamma2">gamma2</option>
                         {/* Add more options as needed */}
                     </select>
                 </label>
