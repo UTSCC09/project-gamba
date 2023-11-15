@@ -24,7 +24,7 @@ export default function Header() {
     return (
         <div>
             <nav>
-                <div>
+                
                     {isUserLoggedIn ? (
                         <div className='header_buttons'>
                             <Link href="/home"> Home </Link>
@@ -36,7 +36,7 @@ export default function Header() {
 
                     ) : <Link href="/signup">Signup/Login</Link>}
 
-                </div>
+
             </nav>
         </div>
     )

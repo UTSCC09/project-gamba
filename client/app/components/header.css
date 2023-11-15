@@ -5,17 +5,14 @@ nav {
     background-color: #333; /* Background color for the navbar */
     color: #fff; /* Text color */
     padding: 10px 0; /* Add some padding for spacing */
-    display: flex;
-    justify-content: space-between;
     align-items: center;
   }
   
   /* Navbar container styles */
   nav > div {
-    display: flex;
-    align-items: center;
     gap: 20px; /* Spacing between items */
     margin: 0 20px;
+    width: 100%;
   }
   
   /* Button styles */
@@ -53,7 +50,8 @@ nav {
   /* Style the buttons inside a div */
   .header_buttons {
     display: flex;
+    width: 95%;
     gap: 20px; /* Spacing between buttons */
-    margin-left: auto; /* Push buttons to the right */
+    justify-content: start;
   }
   
