@@ -210,7 +210,10 @@ export default function CaseSpin({ caseName }) {
                                     </div>
                                 ))}
                             </div>
-                            {line ? <div ref={lineRef} className="line"></div> : null}
+                            {line ? 
+                            <div className="line_wrap">
+                                <div ref={lineRef} className="line"></div>
+                            </div> : null}
                         </div>
                         <div className="selected-gun">
                             {isResultModalOpen && <ResultModal onClose={() => { closeResultModal(), insertItem() }} />}
