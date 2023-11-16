@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../page'; // Import the Apollo Client instance
 import Inventory from '../components/Inventory';
+import "../components/Body.css";
 
 export default function Leaderboard() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);

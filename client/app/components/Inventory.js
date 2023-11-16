@@ -4,6 +4,7 @@ import { GET_ITEMS } from '../queries/userQueries'
 import { useQuery } from '@apollo/client'
 import Cookies from 'js-cookie';
 import './Inventory.css'
+import "./Body.css";
 
 export default function Inventory() {
     const username = Cookies.get('username');

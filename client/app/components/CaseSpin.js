@@ -4,8 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import CaseModel from "./CaseModel";
 import { ADD_ITEM } from "../mutations/userMutations";
 import Cookies from "js-cookie";
-import { client } from "../page"
-
+import { client } from "../page";
 
 export default function CaseSpin({ caseName }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,7 +54,8 @@ export default function CaseSpin({ caseName }) {
         async function spin() {
             setLine(true);
             setStartSpin(false);
-            await setGuns(createGuns(caseName));
+            const gunList = await createGuns(caseName);
+            await setGuns(gunList);
 
             setSpin(true);
             setStartSpin(true);
@@ -72,10 +72,16 @@ export default function CaseSpin({ caseName }) {
             const totalWidth = itemWidth * numItems + Math.random() * 5000;
             const scrollSpeed = 9500 + Math.random() * 5000; // Adjust the scroll speed as needed
 
-
+            const line = lineRef.current;
+            let linePosition = line.getBoundingClientRect().left - container.getBoundingClientRect().left;
+            let itemIndex = Math.floor(linePosition / itemWidth);
+            const modalContainer = document.querySelector('.modal-container');
 
             const scroll = () => {
-                setScrollPosition(prevPosition => (scrollSpeed) % totalWidth);
+                setScrollPosition((scrollSpeed) % totalWidth);
+                linePosition = line.getBoundingClientRect().left - container.getBoundingClientRect().left;
+                itemIndex = Math.floor(linePosition / itemWidth);
+                modalContainer.style.boxShadow = "0px 0px 4px 4px " + getBackgroundColor(gunList[itemIndex].rarity);
             };
 
             const animation = setInterval(scroll, 50)
@@ -92,7 +98,8 @@ export default function CaseSpin({ caseName }) {
         const ResultModal = ({ onClose }) => {
             return (
                 <div className="result_modal-background">
-                    <div className="result_modal-container">
+                    <div className="result_modal-container"
+                        style={{ boxShadow: "0px 0px 4px 4px " + getBackgroundColor(selectedGun.rarity) }}>
                         <div className="modal-content">
                             <div className="selected-gun">
                                 <img src={selectedGun.imageUrl} className="gunDisplay"

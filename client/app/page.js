@@ -3,6 +3,7 @@ import Header from './components/header'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
+import "./components/Body.css";
 
 const cache = new InMemoryCache({
   typePolicies: {

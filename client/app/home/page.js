@@ -4,6 +4,7 @@ import CaseSpin from '../components/CaseSpin'
 import { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
 import './home.css'
+import "../components/Body.css";
 
 export default function Home() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);

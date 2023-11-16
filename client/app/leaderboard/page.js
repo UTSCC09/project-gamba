@@ -6,6 +6,7 @@ import Users from '../components/Users';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../page'; // Import the Apollo Client instance
 import './leaderboard.css'
+import "../components/Body.css";
 
 export default function Leaderboard() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);

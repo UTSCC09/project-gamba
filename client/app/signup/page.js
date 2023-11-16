@@ -6,6 +6,7 @@ import { GET_USER } from "../queries/userQueries";
 import {client} from "../page"
 import {useRouter} from 'next/navigation'
 import Cookies from "js-cookie";
+import "../components/Body.css";
 
 export default function Signup() {
   const router = useRouter()
