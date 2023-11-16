@@ -14,12 +14,13 @@ export default function UserRow({ user, data }) {
     //     }
     // })
     const rank = data.users.findIndex((u) => u.username === user.username) + 1;
+    const formattedPrice = user.total_price.toFixed(2);
 
     return (
         <tr>
             <td> {rank} </td>
             <td> {user.username} </td>
-            <td> ${user.total_price} </td>
+            <td> ${formattedPrice} </td>
         </tr>
     )
 }
