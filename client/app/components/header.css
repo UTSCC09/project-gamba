@@ -2,10 +2,11 @@
 
 /* Navbar styles */
 nav {
-    background-color: #333; /* Background color for the navbar */
+    background-color: #222; /* Background color for the navbar */
     color: #fff; /* Text color */
     padding: 10px 0; /* Add some padding for spacing */
     align-items: center;
+    border-radius: 5px;
   }
   
   /* Navbar container styles */
@@ -53,5 +54,22 @@ nav {
     width: 95%;
     gap: 20px; /* Spacing between buttons */
     justify-content: flex-start;
+  }
+
+  .user {
+    display: flex;
+    width: 95%;
+    gap: 20px; /* Spacing between buttons */
+    justify-content: flex-end;
+    text-align: center;
+    margin-right: 30px;
+  }
+
+  .username {
+    font-size: 32px;
+  }
+
+  .flex {
+    display: flex;
   }
   

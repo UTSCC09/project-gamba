@@ -16,6 +16,7 @@ export default function Inventory() {
         caseName: '',
         rarity: '',
         quality: '',
+        weaponName: '',
         searchText: '', // New filter for search by text
     });
 
@@ -39,13 +40,14 @@ export default function Inventory() {
     };
 
     const applyFilters = (item) => {
-        const { sortDirection, caseName, rarity, quality, searchText } = filters;
+        const { sortDirection, caseName, rarity, quality, weaponName, searchText } = filters;
 
         return (
             (!sortDirection || sortDirection === 'asc' || sortDirection === 'desc') &&
             (!caseName || item.case === caseName) &&
             (!rarity || item.rarity === rarity) &&
             (!quality || item.quality === quality) &&
+            (!weaponName || item.weaponName === weaponName) &&
             (!searchText ||
                 item.weaponName.toLowerCase().includes(searchText.toLowerCase()) ||
                 item.skinName.toLowerCase().includes(searchText.toLowerCase()))
@@ -63,6 +65,14 @@ export default function Inventory() {
                 return 0;
             }
         });
+
+    const getBackgroundColor = (rarity) => {
+        if (rarity === 'blue') return 'blue';
+        else if (rarity === 'purple') return 'blueviolet';
+        else if (rarity === 'pink') return 'hotpink';
+        else if (rarity === 'red') return 'red';
+        return 'yellow';
+    };
 
     return (
         <>
@@ -140,17 +150,82 @@ export default function Inventory() {
                         {/* Add more options as needed */}
                     </select>
                 </label>
+                <label>
+                    Weapon:
+                    {/* Dropdown for weapon name */}
+                    <select
+                        value={filters.weaponName}
+                        onChange={(e) => handleFilterChange('weaponName', e.target.value)}
+                    >
+                        {/* Add options based on available weapon names */}
+                        <option value="">All</option>
+                        <option value="AK-47">AK-47</option>
+                        <option value="AUG">AUG</option>
+                        <option value="AWP">AWP</option>
+                        <option value="CZ75-Auto">CZ75-Auto</option>
+                        <option value="Desert Eagle">Desert Eagle</option>
+                        <option value="Dual Berettas">Dual Berettas</option>
+                        <option value="FAMAS">FAMAS</option>
+                        <option value="Five-SeveN">Five-SeveN</option>
+                        <option value="Galil AR">Galil AR</option>
+                        <option value="Glock-18">Glock-18</option>
+                        <option value="G3SG1">G3SG1</option>
+                        <option value="MAC-10">MAC-10</option>
+                        <option value="MAG-7">MAG-7</option>
+                        <option value="MP7">MP7</option>
+                        <option value="MP9">MP9</option>
+                        <option value="M249">M249</option>
+                        <option value="M4A1-S">M4A1-S</option>
+                        <option value="M4A4">M4A4</option>
+                        <option value="Nova">Nova</option>
+                        <option value="Negev">Negev</option>
+                        <option value="PP-Bizon">PP-Bizon</option>
+                        <option value="P2000">P2000</option>
+                        <option value="P250">P250</option>
+                        <option value="P90">P90</option>
+                        <option value="R8 Revolver">R8 Revolver</option>
+                        <option value="Sawed-Off">Sawed-Off</option>
+                        <option value="SCAR-20">SCAR-20</option>
+                        <option value="SG 553">SG 553</option>
+                        <option value="SSG 08">SSG 08</option>
+                        <option value="Tec-9">Tec-9</option>
+                        <option value="UMP-45">UMP-45</option>
+                        <option value="USP-S">USP-S</option>
+                        <option value="XM1014">XM1014</option>
+                        {/* Add more options as needed */}
+                        {/* Guns not in any case: MP5-SD */}
+                    </select>
+                </label>
+                <label>
+                    Knife Type:
+                    {/* Dropdown for weapon name */}
+                    <select
+                        value={filters.weaponName}
+                        onChange={(e) => handleFilterChange('weaponName', e.target.value)}
+                    >
+                        {/* Add options based on available weapon names */}
+                        <option value="">All</option>
+                        <option value="Bayonet">Bayonet</option>
+                        <option value="Falchion Knife">Falchion Knife</option>
+                        <option value="Flip Knife">Flip Knife</option>
+                        <option value="Gut Knife">Gut Knife</option>
+                        <option value="Karambit">Karambit</option>
+                        <option value="M9 Bayonet">M9 Bayonet</option>
+                        {/* Add more options as needed */}
+                    </select>
+                </label>
             </div>
             <div className='inventory_container'>
                 <div className="inventory-grid">
                     {filteredInventory.map((item, index) => (
                         <div key={index} className="inventory-item">
-                            <img src={item.image} alt={item.skinName} />
+                            <img src={item.image} alt={item.skinName} 
+                                style={{ backgroundColor: getBackgroundColor(item.rarity) }}/>
                             <p className="combined-names">
                                 {item.weaponName} | {item.skinName}
                             </p>
                             <p>{item.quality}</p>
-                            <p>Price: {item.price}</p>
+                            <p>Price: ${item.price.toFixed(2)}</p>
                             <p>Quantity: {item.quantity}</p>
                         </div>
                     ))}

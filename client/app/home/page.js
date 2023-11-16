@@ -44,11 +44,11 @@ export default function Home() {
                     <div className='case_text'>
                         <div className='home_wrapper'>
                             <div className="home_container">
-                                <button onClick={handleLeft}>left</button>
+                                <div className="previous-icon icon" onClick={handleLeft}></div>
                                 <h3>Selected: {Case}</h3>
-                                <button onClick={handleRight}>right</button>
+                                <div className="next-icon icon" onClick={handleRight}></div>
                             </div>
-                            <div className="home_container">
+                            <div className="case-message"> 
                                 <h3>Click the case to start opening</h3>
                             </div>
                         </div>

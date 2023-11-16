@@ -26,13 +26,21 @@ export default function Header() {
             <nav>
                 
                     {isUserLoggedIn ? (
-                        <div className='header_buttons'>
-                            <Link href="/home"> Home </Link>
-                            <Link href="/inventory"> Inventory </Link>
-                            <Link href="/leaderboard"> Leaderboard </Link>
-                            <button>Trade</button>
-                            <button onClick={handleSignOut}>Signout</button>
+                        <div className="flex">
+                            <div className='header_buttons'>
+                                <Link href="/home"> Home </Link>
+                                <Link href="/inventory"> Inventory </Link>
+                                <Link href="/leaderboard"> Leaderboard </Link>
+                                <Link href="/trade">Trade</Link>
+                                
+                                
+                            </div>
+                            <div className="user">
+                                <Link href="/" onClick={handleSignOut}>Signout</Link>
+                                <div className="username">{Cookies.get('username')}</div>
+                            </div>
                         </div>
+                        
 
                     ) : <Link href="/signup">Signup/Login</Link>}
 

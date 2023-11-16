@@ -96,7 +96,7 @@ export default function CaseSpin({ caseName }) {
                     <div className="result_modal-container">
                         <div className="modal-content">
                             <div className="selected-gun">
-                                <img src={selectedGun.imageUrl} className="gun"
+                                <img src={selectedGun.imageUrl} className="gunDisplay"
                                     style={{ backgroundColor: getBackgroundColor(selectedGun.rarity) }}></img>
                                 {selectedGun.weaponName + " | " + selectedGun.skinName || 'None'}
                                 <div>{selectedGun.quality}</div>

@@ -1,4 +1,9 @@
 /* Add this CSS to your stylesheets */
+body {
+  background: #333;
+  color: white;
+}
+
 .inventory-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -6,17 +11,21 @@
   }
   
   .inventory-item {
-    border: 1px solid #ddd;
+    background-color: rgb(40, 40, 40);
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
     padding: 16px;
     text-align: center;
     margin: 5px;
   }
   
   .inventory-item img {
-    max-width: 100%;
-    height: auto;
-    max-height: 100px; /* Adjust the max height as needed */
+    width: 150px;
+    height: 75px;
     margin-bottom: 8px;
+    border: 3px solid black;
+    border-radius: 5px;
   }
   
   /* Combine skin and weapon name, and make text smaller */
@@ -36,6 +45,7 @@
 }
 
 .filter_buttons{
+  margin: 10px;
   padding: 5px;
 }
 

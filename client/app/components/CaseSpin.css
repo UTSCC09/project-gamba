@@ -11,16 +11,24 @@
     flex-direction: row;
 }
 
-
-
 .gun {
-    height: 100px;
-    width: 200px;
-    padding: 5px;
-    border: 5px solid;
-    border-color: black;
-    display: flex;
-    justify-self: center;
+  height: 100px;
+  width: 200px;
+  padding: 5px;
+  border: 5px solid;
+  border-color: black;
+  display: flex;
+  justify-self: center;
+}
+
+.gunDisplay {
+  height: 100px;
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px 3px #000; 
+  display: flex;
+  justify-self: center;
 }
 
 
@@ -45,7 +53,7 @@
     align-items: center;
     text-align: center;
     margin-top: 10px;
-    gap: 3px;
+    gap: 7px;
 }
 
 .modal-background {
@@ -62,10 +70,10 @@
   }
   
   .modal-container {
-    background: #fff; 
+    background: #222; 
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    box-shadow: 0px 0px 4px 4px rgba(255, 255, 255, 0.2); 
     height: 200px;
     display:flex;
     flex-direction: column;
@@ -89,15 +97,6 @@
     cursor: pointer;
     margin-top: 10px; 
   }
-  
-  /* Center the modal content vertically and horizontally */
-  .modal-container {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;  */
-  }
 
   .modal_buttons{
     display:flex;
@@ -116,10 +115,13 @@
   }
 
   .result_modal-container {
-    background: #fff; 
+    background: #222;
+    min-width: 250px;
+    margin-top:-55px;
+    color: white;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0px 0px 4px 4px rgba(255, 255, 255, 0.2); 
     width: 20%; 
   }
 
