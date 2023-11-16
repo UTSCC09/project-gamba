@@ -22,7 +22,6 @@ export default function Leaderboard() {
                 {isUserLoggedIn ? (
                     <div>
                         <Header />
-                        <div>Leaderboard</div>
                         <div className='board'>
                             <Users />
                         </div>

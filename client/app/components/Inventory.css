@@ -34,3 +34,15 @@
     max-height: 600px; /* You can adjust this value based on your design */
     overflow: auto;
 }
+
+.filter_buttons{
+  padding: 5px;
+}
+
+label{
+  margin-right: 5px;
+}
+
+select{
+  margin-left: 5px;
+}

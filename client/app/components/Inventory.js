@@ -62,7 +62,7 @@ export default function Inventory() {
 
     return (
         <>
-            <div>
+            <div className='filter_buttons'>
                 <label>
                     Price:
                     <select
