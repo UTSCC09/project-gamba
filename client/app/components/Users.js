@@ -4,7 +4,9 @@ import { GET_USERS } from '../queries/userQueries'
 import Cookies from 'js-cookie';
 
 export default function Users() {
-    const { loading, error, data } = useQuery(GET_USERS);
+    const { loading, error, data } = useQuery(GET_USERS, {
+        pollInterval: 500,
+    });
     const username = Cookies.get('username');
     let yourRank = 0;
     console.log(username)

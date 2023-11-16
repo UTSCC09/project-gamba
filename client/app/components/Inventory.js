@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GET_ITEMS } from '../queries/userQueries'
 import { useQuery } from '@apollo/client'
 import Cookies from 'js-cookie';
@@ -7,7 +7,9 @@ import './Inventory.css'
 
 export default function Inventory() {
     const username = Cookies.get('username');
-    const { loading, error, data } = useQuery(GET_ITEMS, { variables: { username: username } });
+    const { loading, error, data, refetch } = useQuery(GET_ITEMS, { 
+        variables: { username: username },
+    });
 
     const [filters, setFilters] = useState({
         sortDirection: '',
@@ -15,6 +17,11 @@ export default function Inventory() {
         rarity: '',
         quality: '',
     });
+
+    useEffect(() => {
+        // Fetch data only when the component mounts
+        refetch();
+    }, [refetch]);
 
     let inventory = [];
 

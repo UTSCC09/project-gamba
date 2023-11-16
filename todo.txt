@@ -3,8 +3,6 @@ TODO LIST
 
 FEATURES
 - display user's inverntory price on navbar?
-- user inventory display
-- inventory and leaderboard pagination + scrolling
 - global chat *
 - add friends + friend list + friend chat *
 - realtime betting page *
@@ -12,8 +10,7 @@ FEATURES
 - deployment *
 
 BUGS
-- leaderboard realtime updates (graphql subscription or polling)
-- inventory realtime updates
+- inventory and leaderboard pagination + scrolling
 - fix user sessions/cookies/security in general
 - case model (import gltf file using three.js)
 - fix weapon hitbox near edges
