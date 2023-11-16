@@ -7,7 +7,7 @@ import './Inventory.css'
 
 export default function Inventory() {
     const username = Cookies.get('username');
-    const { loading, error, data, refetch } = useQuery(GET_ITEMS, { 
+    const { loading, error, data, refetch } = useQuery(GET_ITEMS, {
         variables: { username: username },
     });
 
@@ -61,7 +61,7 @@ export default function Inventory() {
         });
 
     return (
-        <div className='inventory_container'>
+        <>
             <div>
                 <label>
                     Price:
@@ -129,19 +129,21 @@ export default function Inventory() {
                     </select>
                 </label>
             </div>
-            <div className="inventory-grid">
-                {filteredInventory.map((item, index) => (
-                    <div key={index} className="inventory-item">
-                        <img src={item.image} alt={item.skinName} />
-                        <p className="combined-names">
-                            {item.weaponName} | {item.skinName}
-                        </p>
-                        <p>{item.quality}</p>
-                        <p>Price: {item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
-                    </div>
-                ))}
+            <div className='inventory_container'>
+                <div className="inventory-grid">
+                    {filteredInventory.map((item, index) => (
+                        <div key={index} className="inventory-item">
+                            <img src={item.image} alt={item.skinName} />
+                            <p className="combined-names">
+                                {item.weaponName} | {item.skinName}
+                            </p>
+                            <p>{item.quality}</p>
+                            <p>Price: {item.price}</p>
+                            <p>Quantity: {item.quantity}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
