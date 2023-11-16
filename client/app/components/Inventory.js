@@ -16,6 +16,7 @@ export default function Inventory() {
         caseName: '',
         rarity: '',
         quality: '',
+        searchText: '', // New filter for search by text
     });
 
     useEffect(() => {
@@ -38,13 +39,16 @@ export default function Inventory() {
     };
 
     const applyFilters = (item) => {
-        const { sortDirection, caseName, rarity, quality } = filters;
+        const { sortDirection, caseName, rarity, quality, searchText } = filters;
 
         return (
             (!sortDirection || sortDirection === 'asc' || sortDirection === 'desc') &&
             (!caseName || item.case === caseName) &&
             (!rarity || item.rarity === rarity) &&
-            (!quality || item.quality === quality)
+            (!quality || item.quality === quality) &&
+            (!searchText ||
+                item.weaponName.toLowerCase().includes(searchText.toLowerCase()) ||
+                item.skinName.toLowerCase().includes(searchText.toLowerCase()))
         );
     };
 
@@ -63,6 +67,14 @@ export default function Inventory() {
     return (
         <>
             <div className='filter_buttons'>
+                <label>
+                    Search:
+                    <input
+                        type="text"
+                        value={filters.searchText}
+                        onChange={(e) => handleFilterChange('searchText', e.target.value)}
+                    />
+                </label>
                 <label>
                     Price:
                     <select

@@ -43,6 +43,11 @@ label{
   margin-right: 5px;
 }
 
+input{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 select{
   margin-left: 5px;
 }
