@@ -3,7 +3,6 @@ import "./CaseSpin.css";
 import React, { useState, useEffect, useRef } from 'react';
 import CaseModel from "./CaseModel";
 import { ADD_ITEM } from "../mutations/userMutations";
-import { useMutation } from '@apollo/client'
 import Cookies from "js-cookie";
 import { client } from "../page"
 
@@ -39,7 +38,7 @@ export default function CaseSpin({ caseName }) {
                 price: selectedGun.price,
                 rarity: selectedGun.rarity,
                 image: selectedGun.imageUrl,
-                case: selectedGun.case,
+                case: caseName,
             },
             mutation: ADD_ITEM,
         });
@@ -180,7 +179,7 @@ export default function CaseSpin({ caseName }) {
                 quality: quality,
                 price: price,
                 rarity: guns[itemIndex].rarity,
-                case: guns[itemIndex].case,
+                case: caseName,
                 imageUrl: guns[itemIndex].imageUrl
             }
 

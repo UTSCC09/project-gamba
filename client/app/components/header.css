@@ -62,7 +62,6 @@ nav {
     gap: 20px; /* Spacing between buttons */
     justify-content: flex-end;
     text-align: center;
-    margin-right: 30px;
   }
 
   .username {
@@ -71,5 +70,7 @@ nav {
 
   .flex {
     display: flex;
+    width: 95%;
+    margin:auto; 
   }
   
