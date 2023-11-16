@@ -52,6 +52,6 @@ nav {
     display: flex;
     width: 95%;
     gap: 20px; /* Spacing between buttons */
-    justify-content: start;
+    justify-content: flex-start;
   }
   

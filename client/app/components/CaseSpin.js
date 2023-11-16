@@ -100,7 +100,7 @@ export default function CaseSpin({ caseName }) {
                                     style={{ backgroundColor: getBackgroundColor(selectedGun.rarity) }}></img>
                                 {selectedGun.weaponName + " | " + selectedGun.skinName || 'None'}
                                 <div>{selectedGun.quality}</div>
-                                <div>${selectedGun.price}</div>
+                                <div>${(selectedGun.price).toFixed(2)}</div>
                             </div>
                             <button onClick={onClose}>Close</button>
                         </div>
