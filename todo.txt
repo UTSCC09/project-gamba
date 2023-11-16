@@ -10,8 +10,7 @@ FEATURES
 - deployment *
 
 BUGS
-- inventory and leaderboard pagination + scrolling
+- leaderboard pagination + scrolling
 - fix user sessions/cookies/security in general
 - case model (import gltf file using three.js)
 - fix weapon hitbox near edges
-- cut of price float to 2 decimals

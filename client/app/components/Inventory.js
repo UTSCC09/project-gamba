@@ -61,7 +61,7 @@ export default function Inventory() {
         });
 
     return (
-        <>
+        <div className='inventory_container'>
             <div>
                 <label>
                     Price:
@@ -142,6 +142,6 @@ export default function Inventory() {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 }
