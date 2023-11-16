@@ -159,19 +159,19 @@ export default function CaseSpin({ caseName }) {
                 weaponName = "StatTrak™ ";
             }
             else rng2 = 0;
-            if (rng1 <= 0.56) {
+            if (rng1 <= 0.16) {
                 quality = "Battle-Scarred";
                 price = guns[itemIndex].prices[rng2];
             }
-            else if (rng1 <= 0.63) {
+            else if (rng1 <= 0.40) {
                 quality = "Well-Worn";
                 price = guns[itemIndex].prices[1 + rng2];
             }
-            else if (rng1 <= 0.85) {
+            else if (rng1 <= 0.73) {
                 quality = "Field-Tested";
                 price = guns[itemIndex].prices[2 + rng2];
             }
-            else if (rng1 <= 0.93) {
+            else if (rng1 <= 0.97) {
                 quality = "Minimal Wear";
                 price = guns[itemIndex].prices[3 + rng2];
             }
