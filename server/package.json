@@ -1,0 +1,41 @@
+{
+  "name": "project-gamba",
+  "version": "1.0.0",
+  "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/KRLE_tfD)\r # Project Title: CSGO Case Simulator\r Team Members: Mark Lin, Harris Chong",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UTSCC09/project-gamba.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UTSCC09/project-gamba/issues"
+  },
+  "homepage": "https://github.com/UTSCC09/project-gamba#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "express-session": "^1.17.3",
+    "graphql": "^15.8.0",
+    "graphql-fields": "^2.0.3",
+    "graphql-parse-resolve-info": "^4.13.0",
+    "js-cookie": "^3.0.5",
+    "mongoose": "^8.0.0",
+    "next": "^14.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1"
+  }
+}
