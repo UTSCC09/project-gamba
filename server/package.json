@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/UTSCC09/project-gamba#readme",
   "dependencies": {
+    "@apollo/client": "^3.8.7",
+    "@apollo/server": "^4.9.5",
+    "@graphql-tools/schema": "^10.0.2",
+    "apollo-server": "^3.13.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
@@ -29,10 +33,16 @@
     "express-session": "^1.17.3",
     "graphql": "^15.8.0",
     "graphql-fields": "^2.0.3",
+    "graphql-middleware": "^6.1.35",
     "graphql-parse-resolve-info": "^4.13.0",
+    "graphql-playground-middleware": "^1.1.2",
+    "graphql-playground-middleware-express": "^1.7.23",
+    "graphql-subscriptions": "^2.0.0",
+    "graphql-ws": "^5.14.2",
     "js-cookie": "^3.0.5",
     "mongoose": "^8.0.0",
-    "next": "^14.0.1"
+    "next": "^14.0.1",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
     "dotenv": "^16.3.1",

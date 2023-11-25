@@ -29,7 +29,7 @@ export default function Header() {
                         <div className="flex">
                             <div className='header_buttons'>
                                 <Link href="/home"> Home </Link>
-                                <Link href="/inventory"> Inventory </Link>
+                                <Link href={`/inventory/${Cookies.get('username')}`}> Inventory </Link>
                                 <Link href="/leaderboard"> Leaderboard </Link>
                                 <Link href="/trade">Trade</Link>
                                 

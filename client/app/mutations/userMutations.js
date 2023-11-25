@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client'
+import { gql } from '@apollo/client'
 
 const ADD_USER = gql`
     mutation addUser($username: String!, $password: String!){
@@ -36,4 +36,70 @@ const ADD_ITEM = gql`
 `
 
 
-export {ADD_USER, DELETE_USER, LOGIN, ADD_ITEM}
+const ADD_TRADE = gql`
+    mutation addTrade($username: String!, $sender: String!, $offer: [ItemInput]!, $receive: [ItemInput]!) {
+        addTrade(username: $username, sender: $sender, offer: $offer, receive: $receive) {
+            id
+            username
+            trades {
+                id
+                offer {
+                    weaponName
+                    skinName
+                    quality
+                    price
+                    quantity
+                    rarity
+                    image
+                    case
+                }
+                receive {
+                    weaponName
+                    skinName
+                    quality
+                    price
+                    quantity
+                    rarity
+                    image
+                    case
+                }
+            }
+        }
+    }
+`;
+
+const RESOLVE_TRADE = gql`
+    mutation resolveTrade($user: String!, $other_user: String!, $offer: [ItemInput]!, $receive: [ItemInput]!, $action: String!) {
+        resolveTrade(user: $user, other_user: $other_user, offer: $offer, receive: $receive, action: $action) {
+            id
+            username
+            trades {
+                id
+                offer {
+                    weaponName
+                    skinName
+                    quality
+                    price
+                    quantity
+                    rarity
+                    image
+                    case
+                }
+                receive {
+                    weaponName
+                    skinName
+                    quality
+                    price
+                    quantity
+                    rarity
+                    image
+                    case
+                }
+            }
+        }
+    }
+`
+
+
+
+export { ADD_USER, DELETE_USER, LOGIN, ADD_ITEM, ADD_TRADE, RESOLVE_TRADE }

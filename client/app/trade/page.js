@@ -5,6 +5,9 @@ import Cookies from "js-cookie";
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../page'; // Import the Apollo Client instance
 import "../components/Body.css";
+import UserSearch from '../components/UserSearch';
+import TradeRequests from '../components/TradeRequests';
+import './trade.css';
 
 export default function Leaderboard() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
@@ -21,6 +24,10 @@ export default function Leaderboard() {
                 {isUserLoggedIn ? (
                     <div>
                         <Header />
+                        <div className='trades_wrapper'>
+                            <TradeRequests />
+                            <UserSearch />
+                        </div>
                     </div>
                 ) : <div>You are not authenticated. Please log in.</div>}
             </div>

@@ -2,15 +2,18 @@ TODO LIST
 ---------
 
 FEATURES
-- display user's inverntory price on navbar?
 - global chat *
-- add friends + friend list + friend chat *
 - realtime betting page *
 - skin tradeup page
+- add friends + friend list + friend chat *
 - deployment *
 
 BUGS
 - leaderboard pagination + scrolling
+- inventory pagination
 - fix user sessions/cookies/security in general
 - case model (import gltf file using three.js)
 - fix weapon hitbox near edges
+- refresh not authenticated bug
+- change to next-auth authentication?
+- trading css

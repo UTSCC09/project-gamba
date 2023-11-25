@@ -6,12 +6,15 @@ import Cookies from 'js-cookie';
 import './Inventory.css'
 import "./Body.css";
 
-export default function Inventory() {
-    const username = Cookies.get('username');
+export default function Inventory({ username, onSelectItem}) {
     const { loading, error, data, refetch } = useQuery(GET_ITEMS, {
         variables: { username: username },
     });
 
+    const handleItemClick = (item, isOtherUserInventory) => {
+        onSelectItem(item, isOtherUserInventory);
+    };
+    
     const [filters, setFilters] = useState({
         sortDirection: '',
         caseName: '',
@@ -29,7 +32,6 @@ export default function Inventory() {
     let inventory = [];
 
     if (!loading && !error) {
-        console.log(data.user.inventory)
         inventory = data.user.inventory;
     }
 
@@ -219,7 +221,7 @@ export default function Inventory() {
             <div className='inventory_container'>
                 <div className="inventory-grid">
                     {filteredInventory.map((item, index) => (
-                        <div key={index} className="inventory-item">
+                        <div key={index} className="inventory-item" onClick={() => handleItemClick(item, true)}>
                             <img src={item.image} alt={item.skinName} 
                                 style={{ backgroundColor: getBackgroundColor(item.rarity) }}/>
                             <p className="combined-names">

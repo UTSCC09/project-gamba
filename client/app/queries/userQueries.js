@@ -35,4 +35,35 @@ const GET_ITEMS = gql`
     }
 `
 
-export {GET_USERS, GET_USER, GET_ITEMS}
+const GET_TRADES = gql`
+    query getTrades($username: String!) {
+        user(username: $username) {
+            trades {
+                sender
+                offer {
+                    weaponName
+                    skinName
+                    quality
+                    price
+                    quantity
+                    rarity
+                    image
+                    case
+                }
+                receive {
+                    weaponName
+                    skinName
+                    quality
+                    price
+                    quantity
+                    rarity
+                    image
+                    case
+                }
+            }
+        }
+    
+    }
+`
+
+export {GET_USERS, GET_USER, GET_ITEMS, GET_TRADES}

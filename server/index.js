@@ -7,6 +7,7 @@ const schema = require('./schema/schema');
 const connectDB = require('./config/db');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const expressPlayground = require('graphql-playground-middleware-express').default;
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(
     })
 );
 
+app.use('/playground', expressPlayground({ endpoint: '/graphql' }));
 app.use(
     '/graphql', 
     (req,res) => {

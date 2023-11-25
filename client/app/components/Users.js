@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 
 export default function Users() {
     const { loading, error, data } = useQuery(GET_USERS, {
-        pollInterval: 500,
+        pollInterval: 60000, //update leaderboard every minute
     });
     const username = Cookies.get('username');
     let yourRank = 0;

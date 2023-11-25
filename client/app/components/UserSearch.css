@@ -1,0 +1,142 @@
+.users-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.users-list {
+    list-style: none;
+    padding: 0;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Added to push the button to the right */
+    margin-bottom: 10px;
+}
+
+.user-button {
+    margin-left: 10px;
+}
+
+/* UserSearch.css */
+
+.users-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.user-item {
+    margin-bottom: 10px;
+}
+
+.user-button {
+    cursor: pointer;
+}
+
+/* TradeModal.css */
+
+.trade-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: none;
+  }
+  
+  .trade-modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 200vh; /* Adjust the width as needed */
+    height: 90vh;
+    text-align: center;
+    color: black;
+    overflow: none;
+  }
+  
+  .inventory{
+    max-height: 45%;
+    max-width: 100%;
+    overflow: scroll;
+    border: 1px solid black;
+    margin: 5px;
+  }
+  .modal_header{
+    display: flex;
+    justify-content: center;
+  }
+  .modal_items{
+    display: flex;
+    
+  }
+
+  .inventories{
+    display: flex;
+    flex-direction: column;
+    width: 200vh; /* Adjust the width as needed */
+    height: 90vh;
+  }
+
+  /* Add these styles to your existing CSS file or create a new one */
+
+.selected-items-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200vh; /* Adjust the width as needed */
+    height: 84vh;
+    
+}
+
+.selected-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust item width as needed */
+    gap: 10px;
+    max-height: 45%;
+    max-width: 100%;
+}
+
+.selected-item {
+    border: 1px solid #ddd;
+    text-align: center;
+    max-height: 100%;
+    
+}
+
+.selected-item img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+    max-height: 50%;
+}
+
+/* Adjust text size and other properties */
+.selected-item p {
+    font-size: 12px; /* Adjust the font size as needed */
+    margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p{
+    margin: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.your_items{
+    justify-self: center;
+}
+  /* Add more styles as needed */
+  

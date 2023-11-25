@@ -1,6 +1,7 @@
 import {useMutation} from '@apollo/client';
 import {DELETE_USER} from '../mutations/userMutations';
 import { GET_USERS } from '../queries/userQueries';
+import Link from 'next/link'
 
 export default function UserRow({ user, data }) {
     // const [deleteUser] = useMutation(DELETE_USER, {
@@ -21,6 +22,7 @@ export default function UserRow({ user, data }) {
             <td> {rank} </td>
             <td> {user.username} </td>
             <td> ${formattedPrice} </td>
+            <Link href={`/inventory/${user.username}`}> Inventory </Link>
         </tr>
     )
 }
