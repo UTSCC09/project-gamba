@@ -70,6 +70,7 @@
     border: 1px solid black;
     margin: 5px;
   }
+  
   .modal_header{
     display: flex;
     justify-content: center;
@@ -109,7 +110,7 @@
     border: 1px solid #ddd;
     text-align: center;
     max-height: 100%;
-    
+    cursor: pointer;
 }
 
 .selected-item img {
@@ -139,4 +140,3 @@ p{
     justify-self: center;
 }
   /* Add more styles as needed */
-  

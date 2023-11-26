@@ -4,8 +4,9 @@ import { RESOLVE_TRADE } from "../mutations/userMutations";
 import { useQuery } from '@apollo/client'
 import Cookies from "js-cookie";
 import { client } from "../page";
-import './UserSearch.css'
+import { useEffect } from "react";
 import './TradeRequests.css'
+import { use } from "chai";
 
 export default function Users() {
     const username = Cookies.get('username');
@@ -61,9 +62,9 @@ export default function Users() {
                             <h3>Trade from {trade.sender}</h3>
                             <div>
                                 <h4>You Give:</h4>
-                                <div className='selected-items-grid'>
+                                <div className='selected_items_grid'>
                                     {trade.offer.map((item, index) => (
-                                        <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(item, true)}>
+                                        <div key={index} className="selected_item">
                                             {/* Display selected items from the other user's inventory */}
                                             <img src={item.image} alt={item.skinName} />
                                             <p>{item.weaponName} | {item.skinName}</p>
@@ -75,9 +76,9 @@ export default function Users() {
                             </div>
                             <div>
                                 <h4>You Receive:</h4>
-                                <div className='selected-items-grid'>
+                                <div className='selected_items_grid'>
                                     {trade.receive.map((item, index) => (
-                                        <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(item, true)}>
+                                        <div key={index} className="selected_item">
                                             {/* Display selected items from the other user's inventory */}
                                             <img src={item.image} alt={item.skinName} />
                                             <p>{item.weaponName} | {item.skinName}</p>

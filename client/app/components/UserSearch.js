@@ -67,23 +67,24 @@ const TradeModal = ({ user, closeModal }) => {
         }
     };
     
-    const handleRemoveItemClick = (selectedItem, isOtherUserInventory) => {
+    const handleRemoveItemClick = (key, isOtherUserInventory) => {
         let selectedItems;
+        console.log(key)
 
         if (isOtherUserInventory) {
             selectedItems = [...selectedItemsOtherUser];
-            const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
-            if (indexToRemove !== -1) {
-                selectedItems.splice(indexToRemove, 1);
+            //const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
+            
+                selectedItems.splice(key, 1);
                 setSelectedItemsOtherUser(selectedItems);
-            }
+            
         } else {
             selectedItems = [...selectedItemsYourInventory];
-            const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
-            if (indexToRemove !== -1) {
-                selectedItems.splice(indexToRemove, 1);
+            //const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
+            
+                selectedItems.splice(key, 1);
                 setSelectedItemsYourInventory(selectedItems);
-            }
+            
         }
     };
 
@@ -169,7 +170,7 @@ const TradeModal = ({ user, closeModal }) => {
                             <p>You Receive:</p>
                             <div className='selected-items-grid'>
                                 {selectedItemsOtherUser.map((item, index) => (
-                                    <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(item, true)}>
+                                    <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, true)}>
                                         {/* Display selected items from the other user's inventory */}
                                         <img src={item.image} alt={item.skinName} />
                                         <p>{item.weaponName} | {item.skinName}</p>
@@ -183,7 +184,7 @@ const TradeModal = ({ user, closeModal }) => {
                             <p>You're Offering:</p>
                             <div className='selected-items-grid'>
                                 {selectedItemsYourInventory.map((item, index) => (
-                                    <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(item, false)}>
+                                    <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, false)}>
                                         {/* Display selected items from your own inventory */}
                                         <img src={item.image} alt={item.skinName} />
                                         <p>{item.weaponName} | {item.skinName}</p>

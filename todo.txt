@@ -11,6 +11,7 @@ FEATURES
 BUGS
 - leaderboard pagination + scrolling
 - inventory pagination
+- trade pagination
 - fix user sessions/cookies/security in general
 - case model (import gltf file using three.js)
 - fix weapon hitbox near edges

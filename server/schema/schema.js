@@ -278,7 +278,6 @@ const mutation = new GraphQLObjectType({
                             arraysOfObjectsEqual(trade.receive, args.receive)
                         );
                     })
-                    console.log(trade_index)
 
                     if (trade_index === -1) {
                         throw new Error('Trade not found');
