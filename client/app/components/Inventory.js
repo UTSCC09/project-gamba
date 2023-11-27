@@ -12,7 +12,9 @@ export default function Inventory({ username, onSelectItem}) {
     });
 
     const handleItemClick = (item, isOtherUserInventory) => {
-        onSelectItem(item, isOtherUserInventory);
+        if (onSelectItem){
+            onSelectItem(item, isOtherUserInventory);
+        }
     };
     
     const [filters, setFilters] = useState({

@@ -278,7 +278,6 @@ const mutation = new GraphQLObjectType({
                             arraysOfObjectsEqual(trade.receive, args.receive)
                         );
                     })
-                    console.log(trade_index)
 
                     if (trade_index === -1) {
                         throw new Error('Trade not found');
@@ -411,6 +410,86 @@ const mutation = new GraphQLObjectType({
                 }
             },
         },
+        tradeUp: {
+            type: UserType,
+            args: {
+                username: { type: GraphQLNonNull(GraphQLString) },
+                item: { type: GraphQLNonNull(ItemInputType) },
+                removeItems: { type: GraphQLList(ItemInputType) },
+            },
+            async resolve(parent, args) {
+                const user = await User.findOne({ username: args.username });
+                if (user) {
+                    user.total_price += args.item.price;
+                    const gunIndex = user.inventory.findIndex((item) =>
+                        item.weaponName === args.item.weaponName &&
+                        item.skinName === args.item.skinName &&
+                        item.quality === args.item.quality
+                    );
+                    if (gunIndex != -1) {
+                        // If the item already exists in the inventory, update the quantity
+                        const item = new Item({
+                            weaponName: args.item.weaponName,
+                            skinName: args.item.skinName,
+                            quality: args.item.quality,
+                            price: args.item.price,
+                            quantity: user.inventory[gunIndex].quantity + 1,
+                            rarity: args.item.rarity,
+                            image: args.item.image,
+                            case: args.item.case
+                        });
+                        user.inventory[gunIndex] = item;
+                    }
+                    else {
+                        const item = new Item({
+                            weaponName: args.item.weaponName,
+                            skinName: args.item.skinName,
+                            quality: args.item.quality,
+                            price: args.item.price,
+                            quantity: 1,
+                            rarity: args.item.rarity,
+                            image: args.item.image,
+                            case: args.item.case
+                        });
+                        user.inventory.push(item);
+                    }
+                    // Delete items from removeItems
+                    args.removeItems.forEach((rmItem) => {
+                        const itemIndex = user.inventory.findIndex((inventory_item) => {
+                            return (
+                                inventory_item.weaponName === rmItem.weaponName &&
+                                inventory_item.skinName === rmItem.skinName &&
+                                inventory_item.quality === rmItem.quality
+                            )
+                        });
+
+                        if (itemIndex === -1) {
+                            throw new Error('Item not found');
+                        } else {
+                            if (user.inventory[itemIndex].quantity > 1) {
+                                const newitem = new Item({
+                                    weaponName: rmItem.weaponName,
+                                    skinName: rmItem.skinName,
+                                    quality: rmItem.quality,
+                                    price: rmItem.price,
+                                    quantity: user.inventory[itemIndex].quantity - 1,
+                                    rarity: rmItem.rarity,
+                                    image: rmItem.image,
+                                    case: rmItem.case
+                                });
+                                user.inventory[itemIndex] = newitem;
+                            } else {
+                                user.inventory.splice(itemIndex, 1);
+                            }
+                        }
+                    })
+
+                    // Save the user with the updated inventory
+                    await user.save();
+                    return user;
+                }
+            }
+        }
     }
 });
 

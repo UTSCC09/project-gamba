@@ -100,6 +100,12 @@ const RESOLVE_TRADE = gql`
     }
 `
 
+const TRADE_UP = gql`
+    mutation tradeUp($username: String!, $item: ItemInput!, $removeItems: [ItemInput]!) {
+        tradeUp(username: $username, item: $item, removeItems: $removeItems) {
+            username
+        }
+    }
+`
 
-
-export { ADD_USER, DELETE_USER, LOGIN, ADD_ITEM, ADD_TRADE, RESOLVE_TRADE }
+export { ADD_USER, DELETE_USER, LOGIN, ADD_ITEM, ADD_TRADE, RESOLVE_TRADE, TRADE_UP }

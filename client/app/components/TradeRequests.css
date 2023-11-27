@@ -10,3 +10,24 @@
     max-height: 80%;
     overflow: scroll;
 }
+
+.selected_items_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust item width as needed */
+    gap: 10px;
+    max-height: 45%;
+    max-width: 100%;
+}
+
+.selected_item {
+    border: 1px solid #ddd;
+    text-align: center;
+    max-height: 100%;
+}
+
+.selected_item img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+    max-height: 50%;
+}

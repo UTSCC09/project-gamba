@@ -67,11 +67,10 @@
   .inventory{
     height: 45%;
     max-width: 100%;
-    overflow: scroll;
+    overflow: hidden;
     border: 1px solid black;
     margin: 5px;
   }
-
   .modal_header{
     display: flex;
     justify-content: space-between;
@@ -147,4 +146,3 @@ p{
     justify-self: center;
 }
   /* Add more styles as needed */
-  
