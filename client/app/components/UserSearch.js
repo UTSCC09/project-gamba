@@ -87,6 +87,14 @@ const TradeModal = ({ user, closeModal }) => {
         }
     };
 
+    const getBackgroundColor = (rarity) => {
+        if (rarity === 'blue') return 'blue';
+        else if (rarity === 'purple') return 'blueviolet';
+        else if (rarity === 'pink') return 'hotpink';
+        else if (rarity === 'red') return 'red';
+        return 'yellow';
+    };
+
     // Function to compare two items based on their properties
     const isEqualItem = (item1, item2) => {
         return (
@@ -139,6 +147,7 @@ const TradeModal = ({ user, closeModal }) => {
         <div className="trade-modal-overlay">
             <div className="trade-modal">
                 <div className='modal_header'>
+                <button style={{visibility: "hidden"}}>Close</button>
                     <h3>Trade with {user.username}</h3>
                     <button onClick={closeModal}>Close</button>
                 </div>
@@ -146,7 +155,6 @@ const TradeModal = ({ user, closeModal }) => {
                 <div className='modal_items'>
                     <div className='inventories'>
                         <div className='inventory'>
-                            <p>{user.username}'s Inventory</p>
                             <Inventory
                                 username={user.username}
                                 onSelectItem={(item) => {
@@ -163,6 +171,8 @@ const TradeModal = ({ user, closeModal }) => {
                                 onSelectItem={(item) => handleItemClick(item, false)}
                             />
                         </div>
+
+
                     </div>
                     <div className='selected-items-box'>
                         <div>
@@ -185,7 +195,7 @@ const TradeModal = ({ user, closeModal }) => {
                                 {selectedItemsYourInventory.map((item, index) => (
                                     <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(item, false)}>
                                         {/* Display selected items from your own inventory */}
-                                        <img src={item.image} alt={item.skinName} />
+                                        <img src={item.image} alt={item.skinName} style={{backgroundColor: getBackgroundColor(item.rarity)}}/>
                                         <p>{item.weaponName} | {item.skinName}</p>
                                         <p>{item.quality}</p>
                                         <p>Price: ${item.price.toFixed(2)}</p>
@@ -193,7 +203,7 @@ const TradeModal = ({ user, closeModal }) => {
                                 ))}
                             </div>
                         </div>
-                        <button onClick={handleTradeClick}>Send Trade Request</button>
+                        <button onClick={handleTradeClick} style={{marginBottom: "5px"}}>Send Trade Request</button>
                     </div>
                 </div>
             </div>
