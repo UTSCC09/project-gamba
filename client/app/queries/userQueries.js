@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client'
 
 const GET_USERS = gql`
-    query getUsers {
-        users{
+    query getUsers($page: Int!, $limit: Int!) {
+        users(page: $page, limit: $limit) {
             username
             total_price
         }

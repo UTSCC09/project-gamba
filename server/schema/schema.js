@@ -64,8 +64,14 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         users: {
             type: new GraphQLList(UserType),
+            args: {
+                page: { type: GraphQLInt, defaultValue: 1 },
+                limit: { type: GraphQLInt, defaultValue: 10 },
+            },
             resolve(parent, args) {
-                return User.find({}).sort({ total_price: -1 }); //add max and possibly pagination
+                const skip = (args.page - 1) * args.limit;
+                const limit = args.limit;
+                return User.find({}).sort({ total_price: -1 }).skip(skip).limit(limit);
             }
         },
         user: {

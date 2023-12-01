@@ -17,24 +17,24 @@ const TradeModal = ({ user, closeModal }) => {
     const handleItemClick = (item, isOtherUserInventory) => {
         const maxItems = 5;
         let selectedItems;
-    
+
         if (isOtherUserInventory) {
             selectedItems = [...selectedItemsOtherUser];
         } else {
             selectedItems = [...selectedItemsYourInventory];
         }
-    
+
         const itemCount = selectedItems.filter(selectedItem => isEqualItem(selectedItem, item)).length;
-    
+
         // Check if the item is already in the selected items array
         if (itemCount !== -1 && selectedItems.length < maxItems) {
             const remainingQuantity = item.quantity - itemCount;
-    
+
             // Check if there is enough quantity in the inventory to add another one
             if (remainingQuantity > 0) {
                 // Increase the item's quantity in the selected items array
                 selectedItems.push({ ...item, quantity: 1 });
-    
+
                 // Update the state based on whether it's the other user's inventory or yours
                 if (isOtherUserInventory) {
                     setSelectedItemsOtherUser(selectedItems);
@@ -50,10 +50,10 @@ const TradeModal = ({ user, closeModal }) => {
             if (selectedItems.length < maxItems) {
                 // Check if the item is not already in the selected items array
                 // Decrease the item's quantity
-    
+
                 // Add the item to the selected items array
                 selectedItems.push({ ...item, quantity: 1 });
-    
+
                 // Update the state based on whether it's the other user's inventory or yours
                 if (isOtherUserInventory) {
                     setSelectedItemsOtherUser(selectedItems);
@@ -66,7 +66,7 @@ const TradeModal = ({ user, closeModal }) => {
             }
         }
     };
-    
+
     const handleRemoveItemClick = (key, isOtherUserInventory) => {
         let selectedItems;
         console.log(key)
@@ -74,17 +74,17 @@ const TradeModal = ({ user, closeModal }) => {
         if (isOtherUserInventory) {
             selectedItems = [...selectedItemsOtherUser];
             //const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
-            
-                selectedItems.splice(key, 1);
-                setSelectedItemsOtherUser(selectedItems);
-            
+
+            selectedItems.splice(key, 1);
+            setSelectedItemsOtherUser(selectedItems);
+
         } else {
             selectedItems = [...selectedItemsYourInventory];
             //const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
-            
-                selectedItems.splice(key, 1);
-                setSelectedItemsYourInventory(selectedItems);
-            
+
+            selectedItems.splice(key, 1);
+            setSelectedItemsYourInventory(selectedItems);
+
         }
     };
 
@@ -116,7 +116,7 @@ const TradeModal = ({ user, closeModal }) => {
             image: item.image,
             case: item.case,
         }));
-    
+
         const receive = selectedItemsOtherUser.map(item => ({
             weaponName: item.weaponName,
             skinName: item.skinName,
@@ -127,7 +127,7 @@ const TradeModal = ({ user, closeModal }) => {
             image: item.image,
             case: item.case,
         }));
-        
+
         console.log(offer)
         console.log(receive)
         console.log(user.username)
@@ -148,7 +148,7 @@ const TradeModal = ({ user, closeModal }) => {
         <div className="trade-modal-overlay">
             <div className="trade-modal">
                 <div className='modal_header'>
-                <button style={{visibility: "hidden"}}>Close</button>
+                    <button style={{ visibility: "hidden" }}>Close</button>
                     <h3>Trade with {user.username}</h3>
                     <button onClick={closeModal}>Close</button>
                 </div>
@@ -196,7 +196,7 @@ const TradeModal = ({ user, closeModal }) => {
                                 {selectedItemsYourInventory.map((item, index) => (
                                     <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, false)}>
                                         {/* Display selected items from your own inventory */}
-                                        <img src={item.image} alt={item.skinName} style={{backgroundColor: getBackgroundColor(item.rarity)}}/>
+                                        <img src={item.image} alt={item.skinName} style={{ backgroundColor: getBackgroundColor(item.rarity) }} />
                                         <p>{item.weaponName} | {item.skinName}</p>
                                         <p>{item.quality}</p>
                                         <p>Price: ${item.price.toFixed(2)}</p>
@@ -204,7 +204,7 @@ const TradeModal = ({ user, closeModal }) => {
                                 ))}
                             </div>
                         </div>
-                        <button onClick={handleTradeClick} style={{marginBottom: "5px"}}>Send Trade Request</button>
+                        <button onClick={handleTradeClick} style={{ marginBottom: "5px" }}>Send Trade Request</button>
                     </div>
                 </div>
             </div>
@@ -213,7 +213,12 @@ const TradeModal = ({ user, closeModal }) => {
 };
 
 export default function Users() {
-    const { loading, error, data } = useQuery(GET_USERS);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const { loading, error, data } = useQuery(GET_USERS, {
+        variables: { page: currentPage, limit: 10 },
+    });
+
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedUser, setSelectedUser] = useState(null); // Keep track of the selected user for trading
     const username = Cookies.get('username');
@@ -225,9 +230,17 @@ export default function Users() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Something Went Wrong</p>;
 
-    const filteredUsers = data.users.filter((user) =>
-        user.username.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const users = data.users
+
+    const nextPage = () => {
+        setCurrentPage((prevPage) => prevPage + 1);
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage((prevPage) => prevPage - 1);
+        }
+    };
 
     const handleTradeClick = (user) => {
         setSelectedUser(user);
@@ -241,14 +254,8 @@ export default function Users() {
 
     return (
         <div className="users-container">
-            <input
-                type="text"
-                placeholder="Search users..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
             <ul className="users-list">
-                {filteredUsers.map((user) => (
+                {users.map((user) => (
                     <div key={user.id} className="user-item">
                         <span>{user.username}</span>
                         <button className="user-button" onClick={() => handleTradeClick(user)}>
@@ -257,7 +264,13 @@ export default function Users() {
                     </div>
                 ))}
             </ul>
+            {/* "Previous Page" button */}
+            {currentPage > 1 && (
+                <button onClick={prevPage}>Previous Page</button>
+            )}
 
+            {/* "Next Page" button */}
+            <button onClick={nextPage}>Next Page</button>
             {/* Render the TradeModal component if the modal is open */}
             {isTradeModalOpen && (
                 <TradeModal user={selectedUser} closeModal={closeModal} />
