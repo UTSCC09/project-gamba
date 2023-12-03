@@ -2,13 +2,14 @@
 import { GET_TRADES } from "../queries/userQueries"
 import { RESOLVE_TRADE } from "../mutations/userMutations";
 import { useQuery } from '@apollo/client'
+import { getUsername } from "../page";
 import Cookies from "js-cookie";
 import { client } from "../page";
 import { useEffect } from "react";
 import './TradeRequests.css'
 
 export default function Users() {
-    const username = Cookies.get('username');
+    const username = getUsername();
     const { loading, error, data, refetch } = useQuery(GET_TRADES, {
         variables: { username: username }
     });

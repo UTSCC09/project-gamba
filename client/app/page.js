@@ -1,7 +1,7 @@
 "use client";
 import Header from './components/header'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import Cookies from 'js-cookie';
+import { GET_SESSION } from './queries/userQueries';
 import { useEffect } from 'react';
 import "./components/Body.css";
 require('dotenv').config();
@@ -26,13 +26,14 @@ export const client = new ApolloClient({
   credentials: 'include',
 });
 
+export function getUsername() {
+  return document.cookie.replace(
+      /(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1",
+  );
+}
+
 export default function Page() {
-  
-  useEffect(() => {
-    // Access a specific cookie by its name
-    const myCookieValue = Cookies.get('username');
-    console.log('Cookie Value:', myCookieValue);
-  }, []);
 
   return (
     <>

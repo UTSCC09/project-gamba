@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import './TradeUp.css'
 import Inventory from "./Inventory";
 import { TRADE_UP } from '../mutations/userMutations';
+import { GET_ITEMS } from '../queries/userQueries';
 
 export default function TradeUp() {
     const username = Cookies.get('username');
@@ -185,6 +186,20 @@ export default function TradeUp() {
             console.log("You need 10 items to trade up")
         }
     }
+    
+    const handleTradeUpSuccess = () => {
+        // Refetch the inventory after the trade-up mutation is successful
+        refetchInventory();
+        // ... other actions after successful trade-up
+    }
+
+    const refetchInventory = async () => {
+        try {
+            await refetch();
+        } catch (error) {
+            console.error('Error refetching inventory:', error);
+        }
+    }
 
     function getTradeUp(caseName, rarity, isStatTrak) {
         let weaponCase = require(`../../cases/${caseName}`);
@@ -266,6 +281,8 @@ export default function TradeUp() {
                 removeItems: removeItems
             },
             mutation: TRADE_UP,
+            refetchQueries: [{query: GET_ITEMS, variables: {username: username}}],
+            onCompleted: handleTradeUpSuccess,
         })
     }
 

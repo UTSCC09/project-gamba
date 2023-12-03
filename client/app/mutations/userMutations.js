@@ -27,6 +27,14 @@ const LOGIN = gql`
     }
 `
 
+const SIGNOUT = gql`
+    mutation signout {
+        signout {
+            username
+        }
+    }
+`
+
 const ADD_ITEM = gql`
     mutation addItem($username: String!, $weaponName: String!, $skinName: String!, $quality: String!, $price: Float!, $rarity: String!, $image: String!, $case: String!) {
         addItem(username: $username, weaponName: $weaponName, skinName: $skinName, quality: $quality, price: $price, rarity: $rarity, image: $image, case: $case) {
@@ -108,4 +116,4 @@ const TRADE_UP = gql`
     }
 `
 
-export { ADD_USER, DELETE_USER, LOGIN, ADD_ITEM, ADD_TRADE, RESOLVE_TRADE, TRADE_UP }
+export { ADD_USER, DELETE_USER, LOGIN, SIGNOUT, ADD_ITEM, ADD_TRADE, RESOLVE_TRADE, TRADE_UP }

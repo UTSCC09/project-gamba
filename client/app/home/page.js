@@ -2,6 +2,7 @@
 import Header from '../components/header'
 import CaseSpin from '../components/CaseSpin'
 import { useState, useEffect } from 'react';
+import { getUsername } from '../page';
 import Cookies from "js-cookie";
 import './home.css'
 import "../components/Body.css";
@@ -13,7 +14,7 @@ export default function Home() {
 
     // Listen for changes in the 'username' cookie
     useEffect(() => {
-        const username = Cookies.get('username');
+        const username = getUsername();
         setIsUserLoggedIn(username);
     }, []);
 

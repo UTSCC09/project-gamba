@@ -1,7 +1,7 @@
 "use client";
 import Header from '../components/header'
 import { useState, useEffect } from 'react';
-import Cookies from "js-cookie";
+import { getUsername } from '../page';
 import Users from '../components/Users';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../page'; // Import the Apollo Client instance
@@ -13,7 +13,7 @@ export default function Leaderboard() {
 
     // Listen for changes in the 'username' cookie
     useEffect(() => {
-        const username = Cookies.get('username');
+        const username = getUsername();
         setIsUserLoggedIn(username);
     }, []);
 

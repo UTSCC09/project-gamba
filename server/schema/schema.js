@@ -1,6 +1,7 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLFloat, GraphQLInputObjectType } = require('graphql');
 const { compare, genSalt, hash } = require("bcrypt");
 const bcrypt = require('bcryptjs');
+const { serialize } = require("cookie");
 
 // Mongoose models
 const User = require('../models/User');
@@ -59,6 +60,31 @@ const TradeType = new GraphQLObjectType({
     }),
 });
 
+const SessionQuery = new GraphQLObjectType({
+    name: 'SessionQuery',
+    fields: {
+        getSessionUser: {
+            type: UserType,
+            resolve(parent, args, { req }) {
+                console.log('Session:', req.session);
+                if (req.session && req.session.user) {
+                    return req.session.user;
+                } else {
+                    throw new Error('Unauthorized');
+                }
+            }
+        }
+    }
+});
+
+// Middleware for authorization
+const requireAuth = (context) => {
+    if (!context.req.session || !context.req.session.user) {
+        console.log(context.req.session);
+        throw new Error('Unauthorized');
+    }
+};
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -68,7 +94,8 @@ const RootQuery = new GraphQLObjectType({
                 page: { type: GraphQLInt, defaultValue: 1 },
                 limit: { type: GraphQLInt, defaultValue: 10 },
             },
-            resolve(parent, args) {
+            resolve(parent, args, context) {
+                requireAuth(context);
                 const skip = (args.page - 1) * args.limit;
                 const limit = args.limit;
                 return User.find({}).sort({ total_price: -1 }).skip(skip).limit(limit);
@@ -79,10 +106,20 @@ const RootQuery = new GraphQLObjectType({
             args: {
                 username: { type: GraphQLString }
             },
-            resolve(parent, args) {
+            resolve(parent, args, context) {
+                requireAuth(context);
                 return User.findOne({ username: args.username });
             }
         },
+        session: {
+            type: SessionQuery,
+            resolve: (parent, args, context) => {
+                // Apply authorization check
+                requireAuth(context);
+                return {};
+            }
+
+        }
     }
 });
 
@@ -115,15 +152,6 @@ const mutation = new GraphQLObjectType({
                 });
             }
         },
-        deleteUser: {
-            type: UserType,
-            args: {
-                id: { type: GraphQLNonNull(GraphQLID) }
-            },
-            resolve(parent, args) {
-                return User.findByIdAndDelete(args.id);
-            }
-        },
         login: {
             type: UserType,
             args: {
@@ -137,19 +165,38 @@ const mutation = new GraphQLObjectType({
 
                     if (match) {
                         console.log("User signed in");
-                        // req.session.user = user;
-                        // req.session.save()
-                        // res.cookie('username', user.username, {
-                        //     maxAge: 60 * 60 * 24 * 7,
-                        //     httpOnly: false
-                        // });
-                        console.log(user)
+
+                        req.session.user = user;
+                        req.session.save()
+                        res.setHeader(
+                            "Set-Cookie",
+                            serialize("username", user.username, {
+                                path: "/",
+                                maxAge: 60 * 60 * 24 * 7,
+                            }),
+                        );
+
                         return user;
                     }
 
                 }
                 console.log("User not found")
                 return false;
+            }
+        },
+        signout: {
+            type: UserType,
+            resolve(parent, args, { req, res }) {
+                console.log("User signed out");
+                req.session.destroy();
+                res.setHeader(
+                    "Set-Cookie",
+                    serialize("username", "", {
+                        path: "/",
+                        maxAge: 60 * 60 * 24 * 7, // 1 week in number of seconds
+                    }),
+                );
+                return true;
             }
         },
         addItem: {
@@ -164,7 +211,11 @@ const mutation = new GraphQLObjectType({
                 image: { type: GraphQLNonNull(GraphQLString) },
                 case: { type: GraphQLNonNull(GraphQLString) },
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, context) {
+                requireAuth(context);
+                if (args.username !== context.req.session.user.username) {
+                    throw new Error('Unauthorized: User in argument does not match session user');
+                }
                 const user = await User.findOne({ username: args.username });
                 if (user) {
                     user.total_price += args.price;
@@ -214,7 +265,11 @@ const mutation = new GraphQLObjectType({
                 offer: { type: GraphQLList(ItemInputType) },
                 receive: { type: GraphQLList(ItemInputType) },
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, context) {
+                requireAuth(context);
+                if (args.username !== context.req.session.user.username) {
+                    throw new Error('Unauthorized: User in argument does not match session user');
+                }
                 const user = await User.findOne({ username: args.username });
                 if (user) {
                     // Assuming you want to create a new trade document
@@ -243,7 +298,12 @@ const mutation = new GraphQLObjectType({
                 receive: { type: GraphQLList(ItemInputType) }, // Items expected to receive in the trade
                 action: { type: GraphQLNonNull(GraphQLString) },
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, context) {
+                requireAuth(context);
+                // Ensure that the user in the argument matches the session user
+                if (args.user !== context.req.session.user.username) {
+                    throw new Error('Unauthorized: User in argument does not match session user');
+                }
                 const user = await User.findOne({ username: args.user });
                 const other_user = await User.findOne({ username: args.other_user });
 
@@ -423,7 +483,12 @@ const mutation = new GraphQLObjectType({
                 item: { type: GraphQLNonNull(ItemInputType) },
                 removeItems: { type: GraphQLList(ItemInputType) },
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, context) {
+                requireAuth(context);
+                if (args.username !== context.req.session.user.username) {
+                    throw new Error('Unauthorized: User in argument does not match session user');
+                }
+                
                 const user = await User.findOne({ username: args.username });
                 if (user) {
                     user.total_price += args.item.price;

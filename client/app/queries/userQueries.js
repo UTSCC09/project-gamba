@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client'
+import { gql } from '@apollo/client'
 
 const GET_USERS = gql`
     query getUsers($page: Int!, $limit: Int!) {
@@ -66,4 +66,14 @@ const GET_TRADES = gql`
     }
 `
 
-export {GET_USERS, GET_USER, GET_ITEMS, GET_TRADES}
+const GET_SESSION = gql`
+    query {
+        session{
+            getSessionUser{
+                username
+            }
+        }
+    }
+`
+
+export { GET_USERS, GET_USER, GET_ITEMS, GET_TRADES, GET_SESSION }

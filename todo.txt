@@ -2,19 +2,14 @@ TODO LIST
 ---------
 
 FEATURES
-- global chat *
-- realtime betting page *
-- add friends + friend list + friend chat *
+- global chat *x
+- realtime betting page *x
+- add friends + friend list + friend chat *x
 - deployment *
 
 BUGS
-- inventory pagination
-- fix user sessions/cookies/security in general
-- case model (import gltf file using three.js)
-- fix weapon hitbox near edges
-- refresh not authenticated bug
-- change to next-auth authentication?
-- refresh contract inventory after tradeup
+- inventory pagination x
+- case model (import gltf file using three.js) x
 - contract and trade inventory css
 - landing page
 - ssl cert
