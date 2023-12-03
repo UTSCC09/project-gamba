@@ -4,7 +4,6 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { GET_SESSION } from './queries/userQueries';
 import { useEffect } from 'react';
 import "./components/Body.css";
-require('dotenv').config();
 
 const cache = new InMemoryCache({
   typePolicies: {
