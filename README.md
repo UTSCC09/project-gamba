@@ -1,42 +1,37 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/KRLE_tfD)
-# Project Title: CSGO Case Simulator
-Team Members: Mark Lin, Harris Chong
+# Gamba
 
-## Description of web application
-This web application will simulate the case opening feature from the game CSGO/CS2. Users can make an account and the items will be stored in their account. It will also include a social media-like ecosystem where users can interact, add each other, view each others items, etc.
+## Project URL
 
-Example of an existing case simulator: https://convars.com/en
+**Task:** Provide the link to your deployed application. Please make sure the link works. 
 
-## Key features that will be completed by the Beta version
-1. At least 3 cases that can be opened
-   - Get item information from Steam marketplace api
-2. Database of multiple users that can sign up and store things
-   - Users have an inventory that can store all opened items
-   - Users have a customizable profile that can display user data
-3. Users can trade items with one another
-   - Can go to a user's profile and send a direct trade request
-   - Or can post a trade request on a trade tab/forum for other users to see
+## Project Video URL 
 
-## Additional features that will be completed by the Final version
-1. Leaderboard to compare users based on total inventory price
-   - You can view other user's profiles on the leaderboard
-2. Add more cases if we have time
-3. Ability to add other users and chat with them in real-time
-4. Realtime user betting
-   - Users can bet skins in a coinflip battle against another user in real-time
-5. Implement trade-ups for skins
-   - Exchange 10 skins of the same rarity up to a skin of the next rarity
+**Task:** Provide the link to your youtube video. Please make sure the link works. 
 
-## Technology Stack
-- React
-- Express
-- GraphQL
-- Three.js (Maybe)
-- togetherjs
+## Project Description
 
-## 5 Technical Challenges
-- Figuring out how to do the case spin animation/figure out how to possibly display 3-D renders of a case/weapon
-- Implementing the GraphQL Database
-- Learning how to use React for the frontend
-- Using existing API for the correct item info needed
-- Web RTC for the realtime betting battles and user messaging
+**Task:** Provide a detailed description of your app
+
+## Development
+
+**Task:** Leaving deployment aside, explain how the app is built. Please describe the overall code design and be specific about the programming languages, framework, libraries and third-party api that you have used. 
+
+## Deployment
+
+**Task:** Explain how you have deployed your application. 
+
+## Challenges
+
+**Task:** What is the top 3 most challenging things that you have learned/developed for you app? Please restrict your answer to only three items. 
+
+1.
+2.
+3. 
+
+## Contributions
+
+**Task:** Describe the contribution of each team member to the project. Please provide the full name of each team member (but no student number). 
+
+# One more thing? 
+
+**Task:** Any additional comment you want to share with the course staff? 
