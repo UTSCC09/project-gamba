@@ -35,7 +35,7 @@
     margin-bottom: 4px;
   }
   
-  .inventory_container {
+  .inventory_scroll {
     max-height: 600px; /* You can adjust this value based on your design */
     overflow: auto;
 }

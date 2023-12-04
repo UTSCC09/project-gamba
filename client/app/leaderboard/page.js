@@ -20,7 +20,7 @@ export default function Leaderboard() {
     return (
         <ApolloProvider client={client}>
             <div>
-                {isUserLoggedIn ? (
+
                     <div>
                         <Header />
                         <div className='board'>
@@ -28,7 +28,7 @@ export default function Leaderboard() {
                         </div>
 
                     </div>
-                ) : <div>You are not authenticated. Please log in.</div>}
+
             </div>
         </ApolloProvider>
     )

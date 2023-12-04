@@ -96,7 +96,7 @@ const RootQuery = new GraphQLObjectType({
                 limit: { type: GraphQLInt, defaultValue: 10 },
             },
             resolve(parent, args, context) {
-                requireAuth(context);
+                //requireAuth(context);
                 const skip = (args.page - 1) * args.limit;
                 const limit = args.limit;
                 return User.find({}).sort({ total_price: -1 }).skip(skip).limit(limit);
@@ -108,7 +108,7 @@ const RootQuery = new GraphQLObjectType({
                 username: { type: GraphQLString }
             },
             resolve(parent, args, context) {
-                requireAuth(context);
+                //requireAuth(context);
                 return User.findOne({ username: args.username });
             }
         },
@@ -165,7 +165,6 @@ const mutation = new GraphQLObjectType({
 
                     if (match) {
                         console.log("User signed in");
-
                         req.session.user = user;
                         req.session.save();
                         res.setHeader(
@@ -267,7 +266,7 @@ const mutation = new GraphQLObjectType({
             },
             async resolve(parent, args, context) {
                 requireAuth(context);
-                if (args.username !== context.req.session.user.username) {
+                if (args.sender !== context.req.session.user.username) {
                     throw new Error('Unauthorized: User in argument does not match session user');
                 }
                 const user = await User.findOne({ username: args.username });

@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  # nginx reverse proxy    
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs 
+      - ./vhost:/etc/nginx/vhost.d 
+      - ./html:/usr/share/nginx/html 
+      
+  # reverse proxy let's encrypt companion
+  nginx-proxy-acme:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
+    restart: always
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./acme:/etc/acme.sh
+
+  # React frontend
+  client:
+    image: client
+    container_name: client
+    restart: always
+    # certificate information for let's encrypt
+  
+  # react backend      
+  server:
+    image: server
+    container_name: server
+    restart: always
+    # certificate information for let's encrypt

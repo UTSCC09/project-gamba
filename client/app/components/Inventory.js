@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import './Inventory.css'
 import "./Body.css";
 
-export default function Inventory({ username, onSelectItem}) {
+export default function Inventory({ username, onSelectItem, container}) {
     const { loading, error, data, refetch } = useQuery(GET_ITEMS, {
         variables: { username: username },
     });
@@ -220,7 +220,7 @@ export default function Inventory({ username, onSelectItem}) {
                     </select>
                 </label>
             </div>
-            <div className='inventory_container'>
+            <div className={container}>
                 <div className="inventory-grid">
                     {filteredInventory.map((item, index) => (
                         <div key={index} className="inventory-item" onClick={() => handleItemClick(item, true)}>

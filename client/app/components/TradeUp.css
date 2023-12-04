@@ -1,39 +1,58 @@
 .contract_wrapper {
     display: flex;
+    flex-direction: column;
+}
+
+.desc {
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
 }
 
 .inventory {
     height: 90vh;
-    width: 50%;
     overflow: hidden;
 }
 
 .contract {
+    width: 75%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 4px rgba(0, 123, 255, 0.8);
+    align-self: center;
 }
 
 .selected-items-box {
-    width: 200%;
+    max-width: 1000px;
+    min-height: 175px;
+    max-height: 500px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: top;
     margin-left: 10px;
-    /* Adjust the width as needed */
+    margin-bottom: 10px;
+    align-self: center;
 }
 
 .selected-items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    /* Adjust item width as needed */
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 25px;
+    margin-left: 20px;
 }
 
 .selected-item {
     border: 1px solid #ddd;
     text-align: center;
     max-height: 100%;
+    width: 150px;
     cursor: pointer;
     padding: 10px;
 }
@@ -49,7 +68,7 @@
 
 /* Adjust text size and other properties */
 .selected-item p {
-    font-size: 12px;
+    font-size: 16px;
     /* Adjust the font size as needed */
     margin: 2px 0;
     white-space: nowrap;
@@ -119,3 +138,19 @@
     display: flex;
     justify-self: center;
 }
+
+button {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    padding: 10px 20px; /* Padding around the button text */
+    border: none; /* Remove button border */
+    border-radius: 5px; /* Add some rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+    width: 150px;
+    align-self: center;
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
