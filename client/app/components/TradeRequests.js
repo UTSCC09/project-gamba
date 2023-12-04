@@ -17,6 +17,14 @@ export default function Users() {
 
     const trades = data.user.trades || [];
 
+    const getBackgroundColor = (rarity) => {
+        if (rarity === 'blue') return 'blue';
+        else if (rarity === 'purple') return 'blueviolet';
+        else if (rarity === 'pink') return 'hotpink';
+        else if (rarity === 'red') return 'red';
+        return 'yellow';
+    };
+
     function handleTradeResolve(user, other_user, offer, receive, action) {
         const cleanOffer = offer.map(item => {
             const { __typename, ...cleanedItem } = item;
@@ -52,7 +60,7 @@ export default function Users() {
                                 <div className='selected_items_grid'>
                                     {trade.offer.map((item, index) => (
                                         <div key={index} className="selected_item">
-                                            <img src={item.image} alt={item.skinName} />
+                                            <img src={item.image} alt={item.skinName} style={{ backgroundColor: getBackgroundColor(item.rarity) }}/>
                                             <p>{item.weaponName} | {item.skinName}</p>
                                             <p>{item.quality}</p>
                                             <p>Price: ${item.price.toFixed(2)}</p>
@@ -63,7 +71,7 @@ export default function Users() {
                                 <div className='selected_items_grid'>
                                     {trade.receive.map((item, index) => (
                                         <div key={index} className="selected_item">
-                                            <img src={item.image} alt={item.skinName} />
+                                            <img src={item.image} alt={item.skinName} style={{ backgroundColor: getBackgroundColor(item.rarity) }}/>
                                             <p>{item.weaponName} | {item.skinName}</p>
                                             <p>{item.quality}</p>
                                             <p>Price: ${item.price.toFixed(2)}</p>

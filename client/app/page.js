@@ -1,6 +1,7 @@
 "use client";
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Link from 'next/link'
+import "./components/header.css";
 import "./components/Body.css";
 
 const cache = new InMemoryCache({
