@@ -6,6 +6,7 @@ import { GET_USER } from "../queries/userQueries";
 import { client } from "../page"
 import { useRouter } from 'next/navigation'
 import "../components/Body.css";
+import Cookies from 'js-cookie';
 
 export default function Signup() {
   const router = useRouter()
@@ -61,6 +62,7 @@ export default function Signup() {
     if (data.login.username === null) {
       setError('Incorrect Username or Password');
     } else {
+      Cookies.set("username", username, { expires: 1 });
       setError(null); // Clear any previous error
       router.push("/home")
     }

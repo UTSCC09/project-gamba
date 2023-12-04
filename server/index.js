@@ -33,10 +33,7 @@ app.use(
         saveUninitialized: true,
         name: 'AppCookie',
         cookie: {
-            httpOnly: true, // Set the HttpOnly flag
-            sameSite: 'Lax', // Set the SameSite flag to 'Lax'
         },
-        store: new MongoStore({ mongoUrl: process.env.MONGO_URI}),
     })
 );
 

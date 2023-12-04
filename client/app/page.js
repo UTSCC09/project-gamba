@@ -3,6 +3,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Link from 'next/link'
 import "./components/header.css";
 import "./components/Body.css";
+import cookie from 'js-cookie';
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -25,10 +26,7 @@ export const client = new ApolloClient({
 });
 
 export function getUsername() {
-  return document.cookie.replace(
-    /(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/,
-    "$1",
-  );
+  return cookie.get('username');
 }
 
 export default function Page() {
