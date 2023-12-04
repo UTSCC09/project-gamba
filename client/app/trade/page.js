@@ -25,8 +25,8 @@ export default function Leaderboard() {
                     <div>
                         <Header />
                         <div className='trades_wrapper'>
-                            <TradeRequests />
                             <UserSearch />
+                            <TradeRequests />
                         </div>
                     </div>
                 ) : <div>You are not authenticated. Please log in.</div>}

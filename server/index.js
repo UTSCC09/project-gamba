@@ -7,8 +7,7 @@ const schema = require('./schema/schema');
 const connectDB = require('./config/db');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const expressPlayground = require('graphql-playground-middleware-express').default;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 const app = express();
 
@@ -22,6 +21,7 @@ app.use(
     }));
     
 app.use(cookieParser());
+app.set("trust proxy", 1);
 
 // Configure sessions
 app.use(
@@ -30,15 +30,15 @@ app.use(
         secret: "please change this secret",
         resave: false,
         saveUninitialized: true,
+        name: 'AppCookie',
         cookie: {
-            //httpOnly: true, // Set the HttpOnly flag
-            //secure: true, // Set the Secure flag
-            //sameSite: 'Strict', // Set the SameSite flag to 'Lax'
+            httpOnly: true, // Set the HttpOnly flag
+            secure: true, // Set the Secure flag
+            sameSite: 'none', // Set the SameSite flag to 'Lax'
         }
     })
 );
 
-app.use('/playground', expressPlayground({ endpoint: '/graphql' }));
 app.use(
     '/graphql', 
     (req,res) => {

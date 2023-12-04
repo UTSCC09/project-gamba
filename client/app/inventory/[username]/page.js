@@ -21,7 +21,7 @@ export default function Leaderboard({params}) {
                 {isUserLoggedIn ? (
                     <div>
                         <Header />
-                        <Inventory username={params.username}/>
+                        <Inventory username={params.username} container=''/>
                         
                     </div>
                 ) : <div>You are not authenticated. Please log in.</div>}

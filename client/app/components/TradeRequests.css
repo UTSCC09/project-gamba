@@ -7,22 +7,24 @@
 .trades{
     display: flex;
     flex-direction: column;
-    max-height: 80%;
-    overflow: scroll;
+    height: 80%;
 }
 
 .selected_items_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust item width as needed */
-    gap: 10px;
-    max-height: 45%;
-    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 25px;
+    margin-left: 20px;
 }
 
 .selected_item {
     border: 1px solid #ddd;
     text-align: center;
     max-height: 100%;
+    width: 150px;
+    cursor: pointer;
+    padding: 10px;
 }
 
 .selected_item img {
@@ -30,4 +32,6 @@
     height: auto;
     margin-bottom: 5px;
     max-height: 50%;
+    border: 3px solid black;
+    border-radius: 5px;
 }

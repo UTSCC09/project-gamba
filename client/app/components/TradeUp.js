@@ -289,10 +289,11 @@ export default function TradeUp() {
     return (
         <>
             <div className="contract_wrapper">
-
+                <div className="desc">Select 10 items of the same rarity to get an item of the next rarity</div>
                 <div className="inventory">
                     <Inventory
                         username={username}
+                        container='inventory_scroll'
                         onSelectItem={(item) => {
                             handleItemClick(item, false)
                             console.log(selectedItems)
@@ -302,9 +303,10 @@ export default function TradeUp() {
                 <div className="selected-gun">
                     {isResultModalOpen && <ResultModal onClose={() => { closeResultModal() }} />}
                 </div>
+                <div className="desc">Click item to cancel selection</div>
                 <div className="contract">
+                    <h2>Contract</h2>
                     <div className='selected-items-box'>
-                        <p>Contract</p>
                         <div className='selected-items-grid'>
                             {selectedItems.map((item, index) => (
                                 <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, false)}>
@@ -318,7 +320,6 @@ export default function TradeUp() {
                         </div>
                     </div>
                     <button onClick={() => handleTradeUp()}>Trade Up</button>
-
                 </div>
             </div>
 

@@ -25,7 +25,9 @@
 
 .users-container {
     max-width: 600px;
-    margin: 0 auto;
+    margin-left: 50px;
+    margin-right: 50px;
+    gap: 10px;
 }
 
 .user-item {
@@ -43,12 +45,11 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 200%;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: none;
   }
   
   .trade-modal {
@@ -93,29 +94,34 @@
 
   /* Add these styles to your existing CSS file or create a new one */
 
-.selected-items-box {
+  .selected-items-box {
+    max-width: 1000px;
+    min-height: 175px;
+    max-height: 500px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 200vh; /* Adjust the width as needed */
-    height: 84vh;
+    justify-content: top;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    align-self: center;
 }
 
 .selected-items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust item width as needed */
-    gap: 10px;
-    max-height: 45%;
-    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 25px;
+    margin-left: 20px;
 }
 
 .selected-item {
     border: 1px solid #ddd;
     text-align: center;
     max-height: 100%;
-    padding: 10px;
+    width: 150px;
     cursor: pointer;
-    
+    padding: 10px;
 }
 
 .selected-item img {
@@ -125,15 +131,6 @@
     max-height: 50%;
     border: 3px solid black;
     border-radius: 5px;
-}
-
-/* Adjust text size and other properties */
-.selected-item p {
-    font-size: 12px; /* Adjust the font size as needed */
-    margin: 2px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 p{

@@ -2,14 +2,9 @@ TODO LIST
 ---------
 
 FEATURES
-- global chat *x
-- realtime betting page *x
-- add friends + friend list + friend chat *x
-- deployment *
 
 BUGS
-- inventory pagination x
-- case model (import gltf file using three.js) x
 - contract and trade inventory css
 - landing page
 - ssl cert
+- change tab names and icon on each page

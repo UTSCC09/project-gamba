@@ -1,3 +1,4 @@
 .trades_wrapper{
     display: flex;
+    justify-content: left;
 }
