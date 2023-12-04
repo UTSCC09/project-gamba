@@ -8,6 +8,7 @@ const connectDB = require('./config/db');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const port = process.env.PORT || 8080;
+const MongoStore = require('connect-mongo');
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(
         credentials: true,
         origin: process.env.FRONTEND,
     }));
-    
+
 app.use(cookieParser());
 app.set("trust proxy", 1);
 
@@ -33,9 +34,10 @@ app.use(
         name: 'AppCookie',
         cookie: {
             httpOnly: true, // Set the HttpOnly flag
-            secure: true, // Set the Secure flag
-            sameSite: 'none', // Set the SameSite flag to 'Lax'
-        }
+            //secure: true, // Set the Secure flag
+            sameSite: 'Lax', // Set the SameSite flag to 'Lax'
+        },
+        store: new MongoStore({ mongoUrl: process.env.MONGO_URI}),
     })
 );
 
