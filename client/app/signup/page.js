@@ -76,6 +76,7 @@ export default function Signup() {
 
   return (
     <main>
+      <title>GambaCase Login/Signup</title>
       {isSignUp ? (
         <form className="message-form" onSubmit={handleSignup}>
           <div className="form-title">New User Sign Up</div>

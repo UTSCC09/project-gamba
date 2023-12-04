@@ -17,6 +17,7 @@ export default function Leaderboard({ params }) {
 
     return (
         <ApolloProvider client={client}>
+            <title>GambaCase Inventory</title>
             <div>
                 {isUserLoggedIn ? (
                     <div>

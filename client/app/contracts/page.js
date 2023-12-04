@@ -15,6 +15,7 @@ export default function Contracts() {
 
     return (
         <ApolloProvider client={client}>
+            <title>GambaCase Contracts</title>
             <div>
                 {isUserLoggedIn ? (
                     <div>
