@@ -1,8 +1,5 @@
 "use client";
-import Header from './components/header'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import { GET_SESSION } from './queries/userQueries';
-import { useEffect } from 'react';
 import Link from 'next/link'
 import "./components/Body.css";
 

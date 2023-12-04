@@ -12,20 +12,12 @@ export default function Users() {
         variables: { username: username }
     });
 
-    if (!loading && !error) {
-        console.log(data.user.trades)
-    }
-
-
     if (loading) return <p>Loading...</p>
     if (error) return <p>Something Went Wrong</p>
 
     const trades = data.user.trades || [];
-    console.log(trades)
 
     function handleTradeResolve(user, other_user, offer, receive, action) {
-        console.log(offer)
-        console.log(receive)
         const cleanOffer = offer.map(item => {
             const { __typename, ...cleanedItem } = item;
             return cleanedItem;
@@ -35,8 +27,6 @@ export default function Users() {
             const { __typename, ...cleanedItem } = item;
             return cleanedItem;
         });
-        console.log(cleanOffer)
-        console.log(cleanReceive)
 
         client.mutate({
             variables: {
