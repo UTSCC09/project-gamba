@@ -7,6 +7,7 @@ const { serialize } = require("cookie");
 const User = require('../models/User');
 const Item = require('../models/Item');
 const Trade = require('../models/Trade');
+const Session = require('../models/Session');
 
 const ItemType = new GraphQLObjectType({
     name: 'Item',
@@ -66,21 +67,21 @@ const SessionQuery = new GraphQLObjectType({
         getSessionUser: {
             type: UserType,
             resolve(parent, args, { req }) {
-                console.log('Session:', req.session);
-                if (req.session && req.session.user) {
-                    return req.session.user;
-                } else {
-                    throw new Error('Unauthorized');
-                }
+                console.log(req.session);
+                return req.session.user;
+
             }
         }
     }
 });
 
 // Middleware for authorization
-const requireAuth = (context) => {
-    if (!context.req.session || !context.req.session.user) {
-        console.log(context.req.session);
+const requireAuth = async (context) => {
+    console.log(context.req.session.id)
+    const sessionData = await Session.findOne({ _id: context.req.session.id });
+    console.log(sessionData.session)
+    
+    if (!sessionData.session) {
         throw new Error('Unauthorized');
     }
 };
@@ -115,7 +116,6 @@ const RootQuery = new GraphQLObjectType({
             type: SessionQuery,
             resolve: (parent, args, context) => {
                 // Apply authorization check
-                requireAuth(context);
                 return {};
             }
 
@@ -167,7 +167,7 @@ const mutation = new GraphQLObjectType({
                         console.log("User signed in");
 
                         req.session.user = user;
-                        req.session.save()
+                        req.session.save();
                         res.setHeader(
                             "Set-Cookie",
                             serialize("username", user.username, {
@@ -488,7 +488,7 @@ const mutation = new GraphQLObjectType({
                 if (args.username !== context.req.session.user.username) {
                     throw new Error('Unauthorized: User in argument does not match session user');
                 }
-                
+
                 const user = await User.findOne({ username: args.username });
                 if (user) {
                     user.total_price += args.item.price;

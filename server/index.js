@@ -7,8 +7,8 @@ const schema = require('./schema/schema');
 const connectDB = require('./config/db');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const expressPlayground = require('graphql-playground-middleware-express').default;
 const port = process.env.PORT || 5000;
+const MongoStore = require('connect-mongo');
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(
         credentials: true,
         origin: process.env.FRONTEND,
     }));
-    
+
 app.use(cookieParser());
 
 // Configure sessions
@@ -31,14 +31,14 @@ app.use(
         resave: false,
         saveUninitialized: true,
         cookie: {
-            //httpOnly: true, // Set the HttpOnly flag
+            httpOnly: true, // Set the HttpOnly flag
             //secure: true, // Set the Secure flag
-            //sameSite: 'Strict', // Set the SameSite flag to 'Lax'
-        }
+            sameSite: 'Lax', // Set the SameSite flag to 'Lax'
+        },
+        store: new MongoStore({ mongoUrl: process.env.MONGO_URI}),
     })
 );
 
-app.use('/playground', expressPlayground({ endpoint: '/graphql' }));
 app.use(
     '/graphql', 
     (req,res) => {
