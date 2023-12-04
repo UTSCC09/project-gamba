@@ -3,7 +3,6 @@ import Header from '../components/header'
 import CaseSpin from '../components/CaseSpin'
 import { useState, useEffect } from 'react';
 import { getUsername } from '../page';
-import Cookies from "js-cookie";
 import './home.css'
 import "../components/Body.css";
 
@@ -12,28 +11,27 @@ export default function Home() {
     const [Case, setCase] = useState("chroma");
     const cases = ["chroma", "chroma2", "chroma3", "falchion", "gamma", "gamma2"];
 
-    // Listen for changes in the 'username' cookie
     useEffect(() => {
         const username = getUsername();
         setIsUserLoggedIn(username);
     }, []);
 
-    function handleLeft(){
-        let index= cases.indexOf(Case);
-        if (index == 0){
-            setCase(cases[cases.length-1]);
-        }else{
-            setCase(cases[cases.indexOf(Case)-1]);
-        }   
+    function handleLeft() {
+        let index = cases.indexOf(Case);
+        if (index == 0) {
+            setCase(cases[cases.length - 1]);
+        } else {
+            setCase(cases[cases.indexOf(Case) - 1]);
+        }
     }
 
-    function handleRight(){
+    function handleRight() {
         console.log(Case);
-        let index= cases.indexOf(Case);
-        if (index == cases.length-1){
+        let index = cases.indexOf(Case);
+        if (index == cases.length - 1) {
             setCase(cases[0]);
-        }else{
-            setCase(cases[cases.indexOf(Case)+1]);
+        } else {
+            setCase(cases[cases.indexOf(Case) + 1]);
         }
     }
 
@@ -50,7 +48,7 @@ export default function Home() {
                                 <h3>Selected: {Case}</h3>
                                 <div className="next-icon icon" onClick={handleRight}></div>
                             </div>
-                            <div className="case-message"> 
+                            <div className="case-message">
                                 <h3>Click the case to start opening</h3>
                             </div>
                         </div>

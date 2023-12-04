@@ -1,14 +1,14 @@
 .gun-container {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    overflow: hidden;
-    white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .guns {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .gun {
@@ -26,101 +26,99 @@
   width: 200px;
   padding: 5px;
   border-radius: 5px;
-  box-shadow: 0px 0px 3px 3px #000; 
+  box-shadow: 0px 0px 3px 3px #000;
   display: flex;
   justify-self: center;
 }
 
 
-.line_wrap{
+.line_wrap {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .line {
-    position: absolute;
-    left: 50%;
-    width: 2px;
-    background-color: yellow;
-    z-index: 1;
-    height: 120px;
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  background-color: yellow;
+  z-index: 1;
+  height: 120px;
 }
 
 .selected-gun {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 10px;
-    gap: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  gap: 7px;
 }
 
 .modal-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 999;  
-  }
-  
-  .modal-container {
-    background: #222; 
-    padding: 20px;
-    box-shadow: 0px 0px 4px 4px rgba(255, 255, 255, 0.2); 
-    height: 200px;
-    display:flex;
-    flex-direction: column;
-  }
-  
-  .modal-content {
-    /* Add additional styling for the modal content as needed */
-    display:flex;
-    flex-direction: column;
-    justify-content:flex-end;
-    height: 250px;
-    justify-content: center;
-  }
-  
-  .modal-content button {
-    background: #007bff; 
-    color: #fff; 
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px; 
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 999;
+}
 
-  .modal_buttons{
-    display:flex;
-    justify-content: center;
-    gap: 10px;
-  }
+.modal-container {
+  background: #222;
+  padding: 20px;
+  box-shadow: 0px 0px 4px 4px rgba(255, 255, 255, 0.2);
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
 
-  .result_modal-background {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 999;  
-  }
+.modal-content {
+  /* Add additional styling for the modal content as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 250px;
+  justify-content: center;
+}
 
-  .result_modal-container {
-    background: #222;
-    min-width: 250px;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 4px 4px rgba(255, 255, 255, 0.2); 
-    width: 20%; 
-  }
+.modal-content button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
-  
+.modal_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.result_modal-background {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+}
+
+.result_modal-container {
+  background: #222;
+  min-width: 250px;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 4px rgba(255, 255, 255, 0.2);
+  width: 20%;
+}

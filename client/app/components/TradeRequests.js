@@ -3,9 +3,7 @@ import { GET_TRADES } from "../queries/userQueries"
 import { RESOLVE_TRADE } from "../mutations/userMutations";
 import { useQuery } from '@apollo/client'
 import { getUsername } from "../page";
-import Cookies from "js-cookie";
 import { client } from "../page";
-import { useEffect } from "react";
 import './TradeRequests.css'
 
 export default function Users() {
@@ -22,34 +20,34 @@ export default function Users() {
     if (loading) return <p>Loading...</p>
     if (error) return <p>Something Went Wrong</p>
 
-    const trades = data.user.trades || []; // Assuming the key is 'getTrades', adjust accordingly
+    const trades = data.user.trades || [];
     console.log(trades)
 
-    function handleTradeResolve(user, other_user, offer, receive, action){
-            console.log(offer)
-            console.log(receive)
-            const cleanOffer = offer.map(item => {
-                const { __typename, ...cleanedItem } = item;
-                return cleanedItem;
-            });
-        
-            const cleanReceive = receive.map(item => {
-                const { __typename, ...cleanedItem } = item;
-                return cleanedItem;
-            });
-            console.log(cleanOffer)
-            console.log(cleanReceive)
+    function handleTradeResolve(user, other_user, offer, receive, action) {
+        console.log(offer)
+        console.log(receive)
+        const cleanOffer = offer.map(item => {
+            const { __typename, ...cleanedItem } = item;
+            return cleanedItem;
+        });
 
-            client.mutate({
-                variables: {
-                    user: user,
-                    other_user: other_user,
-                    offer: cleanOffer,
-                    receive: cleanReceive,
-                    action: action
-                },
-                mutation: RESOLVE_TRADE,
-            }).then(() => refetch());
+        const cleanReceive = receive.map(item => {
+            const { __typename, ...cleanedItem } = item;
+            return cleanedItem;
+        });
+        console.log(cleanOffer)
+        console.log(cleanReceive)
+
+        client.mutate({
+            variables: {
+                user: user,
+                other_user: other_user,
+                offer: cleanOffer,
+                receive: cleanReceive,
+                action: action
+            },
+            mutation: RESOLVE_TRADE,
+        }).then(() => refetch());
     };
 
     return (
@@ -65,7 +63,6 @@ export default function Users() {
                                 <div className='selected_items_grid'>
                                     {trade.offer.map((item, index) => (
                                         <div key={index} className="selected_item">
-                                            {/* Display selected items from the other user's inventory */}
                                             <img src={item.image} alt={item.skinName} />
                                             <p>{item.weaponName} | {item.skinName}</p>
                                             <p>{item.quality}</p>
@@ -79,7 +76,6 @@ export default function Users() {
                                 <div className='selected_items_grid'>
                                     {trade.receive.map((item, index) => (
                                         <div key={index} className="selected_item">
-                                            {/* Display selected items from the other user's inventory */}
                                             <img src={item.image} alt={item.skinName} />
                                             <p>{item.weaponName} | {item.skinName}</p>
                                             <p>{item.quality}</p>

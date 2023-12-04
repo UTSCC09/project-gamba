@@ -2,32 +2,31 @@ body {
   background: #333;
 }
 
-
-.case_text{
-    display: flex;
-    flex-direction: column;
-    height: 0; /* Set the height of .case_text to 100% of the viewport height */
-    margin: 0;
+.case_text {
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  margin: 0;
 }
 
-.home_container{
-    display:flex;
-    justify-content: space-between;
-    width: 350px;
-    margin: auto;
-    gap: 5px;
-    color: white;
-  }
-
-.home_wrapper{
-    position: relative;
-    top: -170px;
+.home_container {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+  margin: auto;
+  gap: 5px;
+  color: white;
 }
-  
-.home{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+.home_wrapper {
+  position: relative;
+  top: -170px;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .case-message {
@@ -49,9 +48,9 @@ body {
 }
 
 .next-icon {
-    background-image: url("buttons/next.png");
+  background-image: url("buttons/next.png");
 }
 
 .previous-icon {
-    background-image: url("buttons/previous.png");
+  background-image: url("buttons/previous.png");
 }

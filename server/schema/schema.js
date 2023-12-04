@@ -1,5 +1,5 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLSchema, GraphQLList, GraphQLNonNull, GraphQLFloat, GraphQLInputObjectType } = require('graphql');
-const { compare, genSalt, hash } = require("bcrypt");
+const { genSalt, hash } = require("bcrypt");
 const bcrypt = require('bcryptjs');
 const { serialize } = require("cookie");
 
@@ -47,7 +47,7 @@ const UserType = new GraphQLObjectType({
         inventory: { type: GraphQLList(ItemType) },
         status: { type: GraphQLBoolean },
         friends: { type: GraphQLList(GraphQLID) },
-        trades: { type: GraphQLList(TradeType) }, // New field for trades
+        trades: { type: GraphQLList(TradeType) },
     }),
 });
 
@@ -67,7 +67,6 @@ const SessionQuery = new GraphQLObjectType({
         getSessionUser: {
             type: UserType,
             resolve(parent, args, { req }) {
-                console.log(req.session);
                 return req.session.user;
 
             }
@@ -77,10 +76,8 @@ const SessionQuery = new GraphQLObjectType({
 
 // Middleware for authorization
 const requireAuth = async (context) => {
-    console.log(context.req.session.id)
     const sessionData = await Session.findOne({ _id: context.req.session.id });
-    console.log(sessionData.session)
-    
+
     if (!sessionData.session) {
         throw new Error('Unauthorized');
     }
@@ -96,7 +93,7 @@ const RootQuery = new GraphQLObjectType({
                 limit: { type: GraphQLInt, defaultValue: 10 },
             },
             resolve(parent, args, context) {
-                //requireAuth(context);
+                requireAuth(context);
                 const skip = (args.page - 1) * args.limit;
                 const limit = args.limit;
                 return User.find({}).sort({ total_price: -1 }).skip(skip).limit(limit);
@@ -108,14 +105,13 @@ const RootQuery = new GraphQLObjectType({
                 username: { type: GraphQLString }
             },
             resolve(parent, args, context) {
-                //requireAuth(context);
+                requireAuth(context);
                 return User.findOne({ username: args.username });
             }
         },
         session: {
             type: SessionQuery,
             resolve: (parent, args, context) => {
-                // Apply authorization check
                 return {};
             }
 
@@ -164,7 +160,6 @@ const mutation = new GraphQLObjectType({
                     const match = await bcrypt.compare(args.password, user.password);
 
                     if (match) {
-                        console.log("User signed in");
                         req.session.user = user;
                         req.session.save();
                         res.setHeader(
@@ -179,14 +174,12 @@ const mutation = new GraphQLObjectType({
                     }
 
                 }
-                console.log("User not found")
                 return false;
             }
         },
         signout: {
             type: UserType,
             resolve(parent, args, { req, res }) {
-                console.log("User signed out");
                 req.session.destroy();
                 res.setHeader(
                     "Set-Cookie",
@@ -271,17 +264,13 @@ const mutation = new GraphQLObjectType({
                 }
                 const user = await User.findOne({ username: args.username });
                 if (user) {
-                    // Assuming you want to create a new trade document
                     const trade = new Trade({
                         sender: args.sender,
                         offer: args.receive,
                         receive: args.offer,
                     });
-
-                    // Add the trade to the user's trades array
                     user.trades.push(trade);
 
-                    // Save the user with the updated trades
                     await user.save();
 
                     return user;
@@ -293,13 +282,12 @@ const mutation = new GraphQLObjectType({
             args: {
                 user: { type: GraphQLNonNull(GraphQLString) },
                 other_user: { type: GraphQLNonNull(GraphQLString) },
-                offer: { type: GraphQLList(ItemInputType) }, // Items offered in the trade
-                receive: { type: GraphQLList(ItemInputType) }, // Items expected to receive in the trade
+                offer: { type: GraphQLList(ItemInputType) },
+                receive: { type: GraphQLList(ItemInputType) },
                 action: { type: GraphQLNonNull(GraphQLString) },
             },
             async resolve(parent, args, context) {
                 requireAuth(context);
-                // Ensure that the user in the argument matches the session user
                 if (args.user !== context.req.session.user.username) {
                     throw new Error('Unauthorized: User in argument does not match session user');
                 }
@@ -310,7 +298,6 @@ const mutation = new GraphQLObjectType({
                     throw new Error('User not found');
                 }
 
-                // Function to compare arrays of objects
                 function arraysOfObjectsEqual(arr1, arr2) {
                     if (arr1.length !== arr2.length) {
                         return false;
@@ -408,7 +395,6 @@ const mutation = new GraphQLObjectType({
                         }
 
                         for (const item of args.offer) {
-                            // Remove the offer items from the other user's inventory
                             const item_index = other_user.inventory.findIndex((inventory_item) => {
                                 return (
                                     inventory_item.weaponName === item.weaponName &&
@@ -418,10 +404,8 @@ const mutation = new GraphQLObjectType({
                             });
 
                             if (item_index === -1) {
-                                // If the item doesn't exist in the user's inventory, add it
                                 other_user.inventory.push(item);
                             } else {
-                                // Otherwise, update the quantity
                                 const newitem = new Item({
                                     weaponName: item.weaponName,
                                     skinName: item.skinName,
@@ -434,8 +418,6 @@ const mutation = new GraphQLObjectType({
                                 });
                                 other_user.inventory[item_index] = newitem;
                             }
-
-                            // Remove the offer items from the user's inventory
                             const other_item_index = user.inventory.findIndex((inventory_item) => {
                                 return (
                                     inventory_item.weaponName === item.weaponName &&
@@ -497,7 +479,6 @@ const mutation = new GraphQLObjectType({
                         item.quality === args.item.quality
                     );
                     if (gunIndex != -1) {
-                        // If the item already exists in the inventory, update the quantity
                         const item = new Item({
                             weaponName: args.item.weaponName,
                             skinName: args.item.skinName,
@@ -523,7 +504,6 @@ const mutation = new GraphQLObjectType({
                         });
                         user.inventory.push(item);
                     }
-                    // Delete items from removeItems
                     args.removeItems.forEach((rmItem) => {
                         const itemIndex = user.inventory.findIndex((inventory_item) => {
                             return (
@@ -554,7 +534,6 @@ const mutation = new GraphQLObjectType({
                         }
                     })
 
-                    // Save the user with the updated inventory
                     await user.save();
                     return user;
                 }

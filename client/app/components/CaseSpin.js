@@ -3,7 +3,7 @@ import "./CaseSpin.css";
 import React, { useState, useEffect, useRef } from 'react';
 import CaseModel from "./CaseModel";
 import { ADD_ITEM } from "../mutations/userMutations";
-import Cookies from "js-cookie";
+import { getUsername } from "../page";
 import { client } from "../page";
 
 export default function CaseSpin({ caseName }) {
@@ -30,7 +30,7 @@ export default function CaseSpin({ caseName }) {
     const insertItem = () => {
         client.mutate({
             variables: {
-                username: Cookies.get('username'),
+                username: getUsername(),
                 weaponName: selectedGun.weaponName,
                 skinName: selectedGun.skinName,
                 quality: selectedGun.quality,
@@ -217,10 +217,10 @@ export default function CaseSpin({ caseName }) {
                                     </div>
                                 ))}
                             </div>
-                            {line ? 
-                            <div className="line_wrap">
-                                <div ref={lineRef} className="line"></div>
-                            </div> : null}
+                            {line ?
+                                <div className="line_wrap">
+                                    <div ref={lineRef} className="line"></div>
+                                </div> : null}
                         </div>
                         <div className="selected-gun">
                             {isResultModalOpen && <ResultModal onClose={() => { closeResultModal(), insertItem() }} />}

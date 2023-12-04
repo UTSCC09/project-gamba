@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import UserRow from './UserRow';
 import { GET_USERS } from '../queries/userQueries';
-import Cookies from 'js-cookie';
+import { getUsername } from '../page';
 import './Users.css';
-import { Center } from '@react-three/drei';
 
 export default function Users() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -12,10 +11,10 @@ export default function Users() {
 
     const { loading, error, data } = useQuery(GET_USERS, {
         variables: { page: currentPage, limit: usersToShow },
-        pollInterval: 60000, // update leaderboard every minute
+        pollInterval: 60000*60, // update leaderboard every hour
     });
 
-    const username = Cookies.get('username');
+    const username = getUsername();
 
     const showMore = (e) => {
         e.preventDefault();
@@ -45,7 +44,7 @@ export default function Users() {
                                     <div className='user_detail'>Name</div>
                                     <div className='user_detail'>Inventory Total</div>
                                 </div>
-                
+
                             </thead>
                             <tbody>
                                 {data.users.slice(0, usersToShow).map((user, index) => (
@@ -55,12 +54,11 @@ export default function Users() {
                         </table>
 
                         <div className="buttons">
-                            {/* "Show More" button */}
                             {usersToShow < data.users.length + 1 && (
-                                <button type="button" onClick={showMore} style={{marginBottom: "20px"}}>Show More</button>
+                                <button type="button" onClick={showMore} style={{ marginBottom: "20px" }}>Show More</button>
                             )}
                             {usersToShow > 10 && (
-                                <button type="button" onClick={collapse} style={{marginBottom: "20px"}}>Collapse</button>
+                                <button type="button" onClick={collapse} style={{ marginBottom: "20px" }}>Collapse</button>
                             )}
                         </div>
                     </div>

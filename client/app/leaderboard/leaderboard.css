@@ -1,10 +1,9 @@
 body {
     background: #333;
 }
-  
 
-.board{
-    display:flex;
+.board {
+    display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 50px;

@@ -13,12 +13,10 @@ export default function CaseModel({ triggerSpin }) {
                 <directionalLight position={[-2, 2, 1]} castShadow />
                 <OrbitControls enableZoom={false} enablePan={false} />
             </Canvas>
-            
-
         </div>
-
     )
 }
+
 function Floor() {
     return (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.7, 0]} receiveShadow>
@@ -40,10 +38,7 @@ function Case({ triggerSpin }) {
         setIsHovered(false);
     };
 
-
-
     useFrame((state, delta) => {
-        //mesh.current.rotation.x += delta * 0.25;
         mesh.current.rotation.y += delta * 0.3;
     })
 

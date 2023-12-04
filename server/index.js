@@ -34,7 +34,6 @@ app.use(
         name: 'AppCookie',
         cookie: {
             httpOnly: true, // Set the HttpOnly flag
-            //secure: true, // Set the Secure flag
             sameSite: 'Lax', // Set the SameSite flag to 'Lax'
         },
         store: new MongoStore({ mongoUrl: process.env.MONGO_URI}),
@@ -46,7 +45,7 @@ app.use(
     (req,res) => {
         return graphqlHTTP({
             schema,
-            graphiql: process.env.NODE_ENV === 'development',
+            graphiql: process.env.NODE_ENV === 'development' ? true : false,
             context: { req, res},
         })(req, res);
     }

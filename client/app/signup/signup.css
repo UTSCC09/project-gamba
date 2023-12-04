@@ -40,8 +40,8 @@
     border: 2px solid black;
     padding: 10px 20px 10px 20px;
 }
-  
-  .btn:hover {
+
+.btn:hover {
     background: #3c3d3f;
     color: #ffffff;
     cursor: pointer;

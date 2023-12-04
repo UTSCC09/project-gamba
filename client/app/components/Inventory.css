@@ -1,59 +1,57 @@
-/* Add this CSS to your stylesheets */
 .inventory-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 5px;
-  }
-  
-  .inventory-item {
-    background-color: rgb(40, 40, 40);
-    color: white;
-    border: 1px solid white;
-    border-radius: 5px;
-    padding: 16px;
-    text-align: center;
-    margin: 5px;
-    cursor: pointer;
-  }
-  
-  .inventory-item img {
-    width: 150px;
-    height: 50%;
-    margin-bottom: 8px;
-    border: 3px solid black;
-    border-radius: 5px;
-  }
-  
-  /* Combine skin and weapon name, and make text smaller */
-  .inventory-item p {
-    margin: 0;
-    font-size: 14px; /* Adjust the font size as needed */
-  }
-  
-  .inventory-item .combined-names {
-    font-weight: bold;
-    margin-bottom: 4px;
-  }
-  
-  .inventory_scroll {
-    max-height: 600px; /* You can adjust this value based on your design */
-    overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 5px;
 }
 
-.filter_buttons{
+.inventory-item {
+  background-color: rgb(40, 40, 40);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 16px;
+  text-align: center;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.inventory-item img {
+  width: 150px;
+  height: 50%;
+  margin-bottom: 8px;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.inventory-item p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.inventory-item .combined-names {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.inventory_scroll {
+  max-height: 600px;
+  overflow: auto;
+}
+
+.filter_buttons {
   margin: 10px;
   padding: 5px;
 }
 
-label{
+label {
   margin-right: 5px;
 }
 
-input{
+input {
   margin-right: 5px;
   margin-left: 5px;
 }
 
-select{
+select {
   margin-left: 5px;
 }

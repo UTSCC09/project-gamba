@@ -1,8 +1,6 @@
 "use client";
 import Header from './components/header'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import { GET_SESSION } from './queries/userQueries';
-import { useEffect } from 'react';
 import "./components/Body.css";
 
 const cache = new InMemoryCache({
@@ -27,8 +25,8 @@ export const client = new ApolloClient({
 
 export function getUsername() {
   return document.cookie.replace(
-      /(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1",
+    /(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/,
+    "$1",
   );
 }
 

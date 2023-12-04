@@ -3,7 +3,7 @@ import './UserRow.css'
 
 export default function UserRow({ user, data }) {
     const rank = data.users.findIndex((u) => u.username === user.username) + 1;
-    const type = (rank % 2)? ("odd"):("even");
+    const type = (rank % 2) ? ("odd") : ("even");
     const formattedPrice = user.total_price.toFixed(2);
 
     return (

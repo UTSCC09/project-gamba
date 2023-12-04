@@ -1,18 +1,16 @@
 "use client";
 import { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GET_USERS } from '../queries/userQueries';
 import { ADD_TRADE } from '../mutations/userMutations';
-import Cookies from 'js-cookie';
-import './UserSearch.css'; // Import a CSS file for styling
+import { getUsername } from '../page';
+import './UserSearch.css';
 import Inventory from './Inventory';
 import { client } from "../page";
 
 const TradeModal = ({ user, closeModal }) => {
     const [selectedItemsOtherUser, setSelectedItemsOtherUser] = useState([]);
     const [selectedItemsYourInventory, setSelectedItemsYourInventory] = useState([]);
-    console.log(selectedItemsOtherUser)
-    console.log(selectedItemsYourInventory)
 
     const handleItemClick = (item, isOtherUserInventory) => {
         const maxItems = 5;
@@ -69,19 +67,14 @@ const TradeModal = ({ user, closeModal }) => {
 
     const handleRemoveItemClick = (key, isOtherUserInventory) => {
         let selectedItems;
-        console.log(key)
 
         if (isOtherUserInventory) {
             selectedItems = [...selectedItemsOtherUser];
-            //const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
-
             selectedItems.splice(key, 1);
             setSelectedItemsOtherUser(selectedItems);
 
         } else {
             selectedItems = [...selectedItemsYourInventory];
-            //const indexToRemove = selectedItems.findIndex(item => isEqualItem(item, selectedItem));
-
             selectedItems.splice(key, 1);
             setSelectedItemsYourInventory(selectedItems);
 
@@ -128,14 +121,10 @@ const TradeModal = ({ user, closeModal }) => {
             case: item.case,
         }));
 
-        console.log(offer)
-        console.log(receive)
-        console.log(user.username)
-
         client.mutate({
             variables: {
                 username: user.username,
-                sender: Cookies.get('username'),
+                sender: getUsername(),
                 offer: offer,
                 receive: receive
             },
@@ -160,15 +149,13 @@ const TradeModal = ({ user, closeModal }) => {
                                 username={user.username}
                                 onSelectItem={(item) => {
                                     handleItemClick(item, true)
-                                    console.log(selectedItemsOtherUser)
-                                    console.log(selectedItemsYourInventory)
                                 }}
                             />
                         </div>
                         <div className='inventory'>
                             <p>Your Inventory</p>
                             <Inventory
-                                username={Cookies.get('username')}
+                                username={getUsername()}
                                 onSelectItem={(item) => handleItemClick(item, false)}
                             />
                         </div>
@@ -181,7 +168,6 @@ const TradeModal = ({ user, closeModal }) => {
                             <div className='selected-items-grid'>
                                 {selectedItemsOtherUser.map((item, index) => (
                                     <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, true)}>
-                                        {/* Display selected items from the other user's inventory */}
                                         <img src={item.image} alt={item.skinName} />
                                         <p>{item.weaponName} | {item.skinName}</p>
                                         <p>{item.quality}</p>
@@ -195,7 +181,6 @@ const TradeModal = ({ user, closeModal }) => {
                             <div className='selected-items-grid'>
                                 {selectedItemsYourInventory.map((item, index) => (
                                     <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, false)}>
-                                        {/* Display selected items from your own inventory */}
                                         <img src={item.image} alt={item.skinName} style={{ backgroundColor: getBackgroundColor(item.rarity) }} />
                                         <p>{item.weaponName} | {item.skinName}</p>
                                         <p>{item.quality}</p>
@@ -221,11 +206,8 @@ export default function Users() {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedUser, setSelectedUser] = useState(null); // Keep track of the selected user for trading
-    const username = Cookies.get('username');
+    const username = getUsername();
     const [isTradeModalOpen, setIsTradeModalOpen] = useState(false);
-
-    console.log(username);
-    console.log(data);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Something Went Wrong</p>;
@@ -264,14 +246,10 @@ export default function Users() {
                     </div>
                 ))}
             </ul>
-            {/* "Previous Page" button */}
             {currentPage > 1 && (
                 <button onClick={prevPage}>Previous Page</button>
             )}
-
-            {/* "Next Page" button */}
             <button onClick={nextPage}>Next Page</button>
-            {/* Render the TradeModal component if the modal is open */}
             {isTradeModalOpen && (
                 <TradeModal user={selectedUser} closeModal={closeModal} />
             )}

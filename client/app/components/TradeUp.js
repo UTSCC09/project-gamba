@@ -1,15 +1,14 @@
 "use client";
-import { useQuery } from '@apollo/client'
-import Cookies from "js-cookie";
 import { client } from "../page";
 import { useState, useEffect } from "react";
 import './TradeUp.css'
 import Inventory from "./Inventory";
 import { TRADE_UP } from '../mutations/userMutations';
 import { GET_ITEMS } from '../queries/userQueries';
+import { getUsername } from "../page";
 
 export default function TradeUp() {
-    const username = Cookies.get('username');
+    const username = getUsername();
     const [selectedItems, setSelectedItems] = useState([]);
     const [isStatTrak, setIsStatTrak] = useState(false);
     const [selectedGun, setSelectedGun] = useState({});
@@ -82,34 +81,20 @@ export default function TradeUp() {
 
                 const itemCount = items.filter(selectedItem => isEqualItem(selectedItem, item)).length;
 
-                // Check if the item is already in the selected items array
                 if (itemCount !== -1 && items.length < maxItems) {
                     const remainingQuantity = item.quantity - itemCount;
 
-                    // Check if there is enough quantity in the inventory to add another one
                     if (remainingQuantity > 0) {
-                        // Increase the item's quantity in the selected items array
                         items.push({ ...item, quantity: 1 });
-
-                        // Update the state based on whether it's the other user's inventory or yours
                         setSelectedItems(items);
                     } else {
-                        // Handle case where there is not enough quantity in the inventory
                         console.log('Not enough quantity available');
                     }
                 } else {
-                    // Check if the maximum items limit is reached
                     if (items.length < maxItems) {
-                        // Check if the item is not already in the selected items array
-                        // Decrease the item's quantity
-
-                        // Add the item to the selected items array
                         items.push({ ...item, quantity: 1 });
-
-                        // Update the state based on whether it's the other user's inventory or yours
                         setSelectedItems(items);
                     } else {
-                        // Handle max items reached, e.g., show a message or prevent further additions
                         console.log('Max items reached');
                     }
                 }
@@ -171,10 +156,7 @@ export default function TradeUp() {
             const cases = selectedItems.map(item => (
                 item.case
             ));
-            // Get a random index from the cases array
             const randomIndex = Math.floor(Math.random() * cases.length);
-
-            // Get the randomly selected case
             const selectedCase = cases[randomIndex];
             const rarity = selectedItems[0].rarity;
 
@@ -186,11 +168,9 @@ export default function TradeUp() {
             console.log("You need 10 items to trade up")
         }
     }
-    
+
     const handleTradeUpSuccess = () => {
-        // Refetch the inventory after the trade-up mutation is successful
         refetchInventory();
-        // ... other actions after successful trade-up
     }
 
     const refetchInventory = async () => {
@@ -281,7 +261,7 @@ export default function TradeUp() {
                 removeItems: removeItems
             },
             mutation: TRADE_UP,
-            refetchQueries: [{query: GET_ITEMS, variables: {username: username}}],
+            refetchQueries: [{ query: GET_ITEMS, variables: { username: username } }],
             onCompleted: handleTradeUpSuccess,
         })
     }
@@ -310,8 +290,7 @@ export default function TradeUp() {
                         <div className='selected-items-grid'>
                             {selectedItems.map((item, index) => (
                                 <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, false)}>
-                                    {/* Display selected items from the other user's inventory */}
-                                    <img src={item.image} alt={item.skinName} style={{backgroundColor: getBackgroundColor(item.rarity)}}/>
+                                    <img src={item.image} alt={item.skinName} style={{ backgroundColor: getBackgroundColor(item.rarity) }} />
                                     <p>{item.weaponName} | {item.skinName}</p>
                                     <p>{item.quality}</p>
                                     <p>Price: ${item.price.toFixed(2)}</p>

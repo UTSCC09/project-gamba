@@ -2,32 +2,30 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { GET_ITEMS } from '../queries/userQueries'
 import { useQuery } from '@apollo/client'
-import Cookies from 'js-cookie';
 import './Inventory.css'
 import "./Body.css";
 
-export default function Inventory({ username, onSelectItem, container}) {
+export default function Inventory({ username, onSelectItem, container }) {
     const { loading, error, data, refetch } = useQuery(GET_ITEMS, {
         variables: { username: username },
     });
 
     const handleItemClick = (item, isOtherUserInventory) => {
-        if (onSelectItem){
+        if (onSelectItem) {
             onSelectItem(item, isOtherUserInventory);
         }
     };
-    
+
     const [filters, setFilters] = useState({
         sortDirection: '',
         caseName: '',
         rarity: '',
         quality: '',
         weaponName: '',
-        searchText: '', // New filter for search by text
+        searchText: '',
     });
 
     useEffect(() => {
-        // Fetch data only when the component mounts
         refetch();
     }, [refetch]);
 
@@ -105,46 +103,38 @@ export default function Inventory({ username, onSelectItem, container}) {
                 </label>
                 <label>
                     Rarity:
-                    {/* Dropdown for rarity */}
                     <select
                         value={filters.rarity}
                         onChange={(e) => handleFilterChange('rarity', e.target.value)}
                     >
-                        {/* Add options based on available rarities */}
                         <option value="">All</option>
                         <option value="blue">blue</option>
                         <option value="purple">purple</option>
                         <option value="pink">pink</option>
                         <option value="red">red</option>
                         <option value="yellow">knives</option>
-                        {/* Add more options as needed */}
                     </select>
                 </label>
                 <label>
                     Quality:
-                    {/* Dropdown for quality */}
                     <select
                         value={filters.quality}
                         onChange={(e) => handleFilterChange('quality', e.target.value)}
                     >
-                        {/* Add options based on available qualities */}
                         <option value="">All</option>
                         <option value="Battle-Scarred">Battle-Scarred</option>
                         <option value="Well-Worn">Well-Worn</option>
                         <option value="Field-Tested">Field-Tested</option>
                         <option value="Minimal Wear">Minimal Wear</option>
                         <option value="Factory New">Factory New</option>
-                        {/* Add more options as needed */}
                     </select>
                 </label>
                 <label>
                     Case:
-                    {/* Dropdown for case name */}
                     <select
                         value={filters.caseName}
                         onChange={(e) => handleFilterChange('caseName', e.target.value)}
                     >
-                        {/* Add options based on available case names */}
                         <option value="">All</option>
                         <option value="chroma">chroma</option>
                         <option value="chroma2">chroma2</option>
@@ -152,17 +142,14 @@ export default function Inventory({ username, onSelectItem, container}) {
                         <option value="falchion">falchion</option>
                         <option value="gamma">gamma</option>
                         <option value="gamma2">gamma2</option>
-                        {/* Add more options as needed */}
                     </select>
                 </label>
                 <label>
                     Weapon:
-                    {/* Dropdown for weapon name */}
                     <select
                         value={filters.weaponName}
                         onChange={(e) => handleFilterChange('weaponName', e.target.value)}
                     >
-                        {/* Add options based on available weapon names */}
                         <option value="">All</option>
                         <option value="AK-47">AK-47</option>
                         <option value="AUG">AUG</option>
@@ -197,18 +184,14 @@ export default function Inventory({ username, onSelectItem, container}) {
                         <option value="UMP-45">UMP-45</option>
                         <option value="USP-S">USP-S</option>
                         <option value="XM1014">XM1014</option>
-                        {/* Add more options as needed */}
-                        {/* Guns not in any case: MP5-SD */}
                     </select>
                 </label>
                 <label>
                     Knife Type:
-                    {/* Dropdown for weapon name */}
                     <select
                         value={filters.weaponName}
                         onChange={(e) => handleFilterChange('weaponName', e.target.value)}
                     >
-                        {/* Add options based on available weapon names */}
                         <option value="">All</option>
                         <option value="Bayonet">Bayonet</option>
                         <option value="Falchion Knife">Falchion Knife</option>
@@ -216,7 +199,6 @@ export default function Inventory({ username, onSelectItem, container}) {
                         <option value="Gut Knife">Gut Knife</option>
                         <option value="Karambit">Karambit</option>
                         <option value="M9 Bayonet">M9 Bayonet</option>
-                        {/* Add more options as needed */}
                     </select>
                 </label>
             </div>
@@ -224,8 +206,8 @@ export default function Inventory({ username, onSelectItem, container}) {
                 <div className="inventory-grid">
                     {filteredInventory.map((item, index) => (
                         <div key={index} className="inventory-item" onClick={() => handleItemClick(item, true)}>
-                            <img src={item.image} alt={item.skinName} 
-                                style={{ backgroundColor: getBackgroundColor(item.rarity) }}/>
+                            <img src={item.image} alt={item.skinName}
+                                style={{ backgroundColor: getBackgroundColor(item.rarity) }} />
                             <p className="combined-names">
                                 {item.weaponName} | {item.skinName}
                             </p>
