@@ -58,7 +58,6 @@ export default function Users() {
                     {trades.map((trade) => (
                         <div className="trade">
                             <h3>Trade from {trade.sender}</h3>
-                            <div>
                                 <h4>You Give:</h4>
                                 <div className='selected_items_grid'>
                                     {trade.offer.map((item, index) => (
@@ -70,8 +69,6 @@ export default function Users() {
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-                            <div>
                                 <h4>You Receive:</h4>
                                 <div className='selected_items_grid'>
                                     {trade.receive.map((item, index) => (
@@ -83,7 +80,6 @@ export default function Users() {
                                         </div>
                                     ))}
                                 </div>
-                            </div>
                             <div className="buttons">
                                 <button onClick={() => handleTradeResolve(username, trade.sender, trade.offer, trade.receive, 'accept')}> Accept </button>
                                 <button onClick={() => handleTradeResolve(username, trade.sender, trade.offer, trade.receive, 'reject')}> Reject </button>

@@ -143,8 +143,8 @@ const TradeModal = ({ user, closeModal }) => {
                 </div>
 
                 <div className='modal_items'>
-                    <div className='inventories'>
-                        <div className='inventory'>
+                    <div className='inventories' style={{maxWidth:"50%"}}>
+                        <div className='inventory' style={{overflow:"auto", maxHeight:"45%"}}>
                             <Inventory
                                 username={user.username}
                                 onSelectItem={(item) => {
@@ -152,7 +152,7 @@ const TradeModal = ({ user, closeModal }) => {
                                 }}
                             />
                         </div>
-                        <div className='inventory'>
+                        <div className='inventory' style={{overflow:"auto", maxHeight:"45%"}}>
                             <p>Your Inventory</p>
                             <Inventory
                                 username={getUsername()}
@@ -162,13 +162,13 @@ const TradeModal = ({ user, closeModal }) => {
 
 
                     </div>
-                    <div className='selected-items-box'>
+                    <div className='selected-items-box' style={{width:"50%", gap:"10px"}}>
                         <div>
                             <p>You Receive:</p>
                             <div className='selected-items-grid'>
                                 {selectedItemsOtherUser.map((item, index) => (
                                     <div key={index} className="selected-item" onClick={() => handleRemoveItemClick(index, true)}>
-                                        <img src={item.image} alt={item.skinName} />
+                                        <img src={item.image} alt={item.skinName} style={{ backgroundColor: getBackgroundColor(item.rarity) }}/>
                                         <p>{item.weaponName} | {item.skinName}</p>
                                         <p>{item.quality}</p>
                                         <p>Price: ${item.price.toFixed(2)}</p>
@@ -246,13 +246,18 @@ export default function Users() {
                     </div>
                 ))}
             </ul>
-            {currentPage > 1 && (
-                <button onClick={prevPage}>Previous Page</button>
-            )}
-            <button onClick={nextPage}>Next Page</button>
-            {isTradeModalOpen && (
-                <TradeModal user={selectedUser} closeModal={closeModal} />
-            )}
+            <div className='buttons'>
+                {currentPage > 1 && (
+                    <button style={{width:"100px"}} onClick={prevPage}>Previous Page</button>
+                )}
+                {users.length == 10 && (
+                    <button style={{width:"100px"}} onClick={nextPage}>Next Page</button>
+                )}
+                {isTradeModalOpen && (
+                    <TradeModal user={selectedUser} closeModal={closeModal} />
+                )}
+            </div>
+            
         </div>
     );
 }

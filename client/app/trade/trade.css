@@ -1,4 +1,6 @@
 .trades_wrapper{
     display: flex;
     justify-content: left;
+    max-height: 87vh;
+    margin-bottom: 20px;
 }
