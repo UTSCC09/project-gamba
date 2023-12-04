@@ -8,6 +8,7 @@ const connectDB = require('./config/db');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const port = process.env.PORT || 8080;
+const MongoStore = require('connect-mongo');
 
 const app = express();
 
