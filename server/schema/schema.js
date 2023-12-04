@@ -115,7 +115,7 @@ const RootQuery = new GraphQLObjectType({
             type: SessionQuery,
             resolve: (parent, args, context) => {
                 // Apply authorization check
-                requireAuth(context);
+                //requireAuth(context);
                 return {};
             }
 
@@ -212,7 +212,7 @@ const mutation = new GraphQLObjectType({
                 case: { type: GraphQLNonNull(GraphQLString) },
             },
             async resolve(parent, args, context) {
-                requireAuth(context);
+                //requireAuth(context);
                 if (args.username !== context.req.session.user.username) {
                     throw new Error('Unauthorized: User in argument does not match session user');
                 }
@@ -266,7 +266,7 @@ const mutation = new GraphQLObjectType({
                 receive: { type: GraphQLList(ItemInputType) },
             },
             async resolve(parent, args, context) {
-                requireAuth(context);
+                //requireAuth(context);
                 if (args.sender !== context.req.session.user.username) {
                     throw new Error('Unauthorized: User in argument does not match session user');
                 }
@@ -299,7 +299,7 @@ const mutation = new GraphQLObjectType({
                 action: { type: GraphQLNonNull(GraphQLString) },
             },
             async resolve(parent, args, context) {
-                requireAuth(context);
+                //requireAuth(context);
                 // Ensure that the user in the argument matches the session user
                 if (args.user !== context.req.session.user.username) {
                     throw new Error('Unauthorized: User in argument does not match session user');
@@ -484,7 +484,7 @@ const mutation = new GraphQLObjectType({
                 removeItems: { type: GraphQLList(ItemInputType) },
             },
             async resolve(parent, args, context) {
-                requireAuth(context);
+                //requireAuth(context);
                 if (args.username !== context.req.session.user.username) {
                     throw new Error('Unauthorized: User in argument does not match session user');
                 }

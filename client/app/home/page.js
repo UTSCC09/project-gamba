@@ -38,7 +38,8 @@ export default function Home() {
     }
 
     return (
-        <>
+        <>  
+            <title>GambaCase</title>
             {isUserLoggedIn ? (
                 <div className='home'>
                     <Header />

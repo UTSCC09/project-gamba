@@ -19,6 +19,7 @@ export default function Leaderboard() {
 
     return (
         <ApolloProvider client={client}>
+            <title>GambaCase Leaderboard</title>
             <div>
 
                     <div>
