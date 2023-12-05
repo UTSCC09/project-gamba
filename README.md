@@ -42,8 +42,8 @@ We have a client and server dockerfile which we build images in a google cloud v
 
 **Task:** What is the top 3 most challenging things that you have learned/developed for your app? Please restrict your answer to only three items. 
 
-1. Learning the concept of GraphQL itself vs the traditional REST API , using a type system to define our data types/input types, creating schema to define queries/ mutations, and using the query language to define how to access/modify data from our database.
-2. Updating the UI in realtime according to changes done elsewhere/rendering things in the frontend appropriately, learning about state management through Apollo Client, learning more in-depth about React hooks like useEffect and useState, refetching queries with Apollo Client.
+1. Learning the concept of GraphQL itself vs the traditional REST API done in class was challenging,  as well as learning how to create a type system to define our data types/input types using GraphQL. Creating a schema to define queries/mutations was also challenging as it involved integration with the database to modify the contents in the database, such as using the query language to define how to access/modify data from our database.
+2. Updating the UI in real-time to changes done elsewhere/rendering things in the frontend responsively was important to learn/develop for the user experience, and learning about state management through Apollo Client as well as learning more in-depth about React hooks like useEffect, useState, and refetching queries with Apollo Client.
 3. The main feature of the site which is the case spinning was challenging to develop the scrolling animation, as well as implementing variance and probability based on the real-life percentages to mimic the real game, from everything to the weapon drop chances and the variance in rarity, condition, etc. 
 
 ## Contributions
