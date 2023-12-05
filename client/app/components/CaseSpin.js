@@ -89,7 +89,7 @@ export default function CaseSpin({ caseName }) {
             setTimeout(() => {
                 clearInterval(animation);
                 setSpin(false);
-            }, 1);
+            }, 6250);
             return () => {
                 clearInterval(animation);
             };
