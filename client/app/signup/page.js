@@ -38,6 +38,9 @@ export default function Signup() {
           passwordRef.current.value = "";
           confirmPasswordRef.current.value = "";
           setError(null);
+          Cookies.set("username", username, { expires: 1 });
+          setError(null); // Clear any previous error
+          router.push("/home")
         } catch (error) {
           setError('Error adding user. Please try again.');
         }

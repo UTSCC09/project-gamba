@@ -42,7 +42,7 @@ export default function Header() {
                             <div className="username">{getUsername()}</div>
                         </div>
                     </div>
-                ) : <Link href="/signup">Signup/Login</Link>}
+                ) : <div></div>}
             </nav>
         </div>
     )

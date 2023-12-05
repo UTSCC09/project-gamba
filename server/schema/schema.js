@@ -259,6 +259,9 @@ const mutation = new GraphQLObjectType({
             },
             async resolve(parent, args, context) {
                 const user = await User.findOne({ username: args.username });
+                if (args.username == args.sender) {
+                    throw new Error('Cannot trade with self');
+                }
                 if (user) {
                     // Assuming you want to create a new trade document
                     const trade = new Trade({

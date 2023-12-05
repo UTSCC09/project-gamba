@@ -15,7 +15,9 @@ export default function Users() {
     if (loading) return <p>Loading...</p>
     if (error) return <p>Something Went Wrong</p>
 
-    const trades = data.user.trades || [];
+    let trades;
+    if(data.user) trades = data.user.trades;
+    else trades = [];
 
     const getBackgroundColor = (rarity) => {
         if (rarity === 'blue') return 'blue';

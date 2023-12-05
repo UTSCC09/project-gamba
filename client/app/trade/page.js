@@ -23,11 +23,14 @@ export default function Leaderboard() {
                 {isUserLoggedIn ? (
                     <div>
                         <Header />
-                        <div className='trades_wrapper'>
-                            <UserSearch />
-                            <TradeRequests />
+                        <div style={{marginRight:"150px"}}>
+                            <div className='trades_wrapper'>
+                                <UserSearch />
+                                <TradeRequests />
+                            </div>
                         </div>
                     </div>
+                    
                 ) : <div>You are not authenticated. Please log in.</div>}
             </div>
         </ApolloProvider>

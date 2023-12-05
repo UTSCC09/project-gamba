@@ -32,7 +32,8 @@ export default function Inventory({ username, onSelectItem, container }) {
     let inventory = [];
 
     if (!loading && !error) {
-        inventory = data.user.inventory;
+        if(data.user) inventory = data.user.inventory;
+        else inventory = [];
     }
 
     if (loading) return <p>Loading...</p>
