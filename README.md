@@ -36,7 +36,7 @@ Our backend architecture is structured around Express, GraphQL, and MongoDB. The
 
 **Task:** Explain how you have deployed your application. 
 
-We have a client and server dockerfile which we build images in a google cloud vm instance after pulling our code from the GitHub repository. After running docker build, we run docker run which runs a new container that pulls the images created. Similar to the lab in class, we now have the client running locally in the vm in a container, and the server also running locally in the vm in a different container. 
+We have a client and server dockerfile which we used to build images on our Google Cloud VM. We imported our code to the VM by pulling from the GitHub repo. The dockerfiles when run would copy the necessary files and then create images that would be used to create the containers. After running docker build on our dockerfiles, we used docker run on our images to start our dockerized containers for client and server. The client and server run in separate Docker containers so we had to make sure that cors was properly implemented so that they could communicate with one another. Now we have client running on port 80:3000 on our VM and server running on port 8080:8080. Finally we routed our domain, gambacase.me, to our VM.
 
 ## Challenges
 
