@@ -10,6 +10,8 @@ http://gambacase.me/
 
 **Task:** Provide the link to your youtube video. Please make sure the link works. 
 
+https://www.youtube.com/watch?v=sH6VVQ8WDgo
+
 ## Project Description
 
 **Task:** Provide a detailed description of your app
@@ -22,11 +24,13 @@ This app is an all-encompassing CS:GO case simulator where you don't have to spe
 
 **Frontend:** 
 
-We are using the React framework Nextjs. Specifically, the code design/layout uses Nextjs's app router which was newly introduced in version 13 and allows us to define routes and components. Most of the frontend consists of the basic things we used in class like Javascript and CSS files, and React hooks such as useEffect and useState. We implemented dynamic routes for the inventory page based on the specific user using the Nextjs app router, and most of the page routes consist of components that can be reused in other pages (things like the header component and inventory component which are reused multiple times). Page navigation was done using the useRouter and Link libraries from Nextjs. Because we are using GraphQL which we will talk about more later, we use Apollo Client which is a state management library for JavaScript that allows us to manage data with GraphQL. We then use Apollo provider to wrap our Nextjs App and place the Apollo Client on the context so we can access it anywhere in our component tree. With Apollo Client, we can call queries and mutations in the Frontend and update the UI automatically.
+Our frontend is built on the React framework Next.js, leveraging the newly introduced app router in version 13. The design and layout are structured around Next.js's app router, enabling us to define routes and components seamlessly. The codebase primarily involves standard elements such as JavaScript and CSS files, and the integration of React hooks like useEffect and useState. Dynamic routes for the inventory page are implemented using Next.js app router, with page routes composed of reusable components like the header and inventory components. Page navigation is facilitated through the useRouter and Link libraries from Next.js.
+
+The adoption of GraphQL as our data query language prompted the utilization of Apollo Client for state management. Apollo Client, a JavaScript library, is integrated with Next.js through Apollo Provider, allowing us to manage data with GraphQL efficiently. The Apollo Client is placed in the context via Apollo Provider, ensuring accessibility throughout the component tree. This setup empowers us to seamlessly execute queries and mutations in the frontend, with automatic UI updates.
 
 **Backend:**
 
-For the backend we are using Express, GraphQL, and MongoDB. For our server we use the library graphqlHTTP from express-graphql which creates an express server that runs a GraphQL API which we've written. For our database we used MongoDB, we connect to the database and create models via mongoose. In our GraphQL API, we define queries and mutations with defined object types. We can provide the mongoose models with arguments/fields from the defined object types in our schema to modify the database (add/remove/update the database). We used the salt and hash from bcrypt for the account details and MongoStore to store the session in mongodb as well as express-session isn't compatible in production. 
+Our backend architecture is structured around Express, GraphQL, and MongoDB. The server utilizes the graphqlHTTP library from express-graphql to create an Express server running a GraphQL API. MongoDB serves as the database, with connectivity established and models defined using Mongoose. In the GraphQL API, queries and mutations are defined with specific object types, allowing interaction with the database. The Mongoose models are supplied with arguments and fields from the defined object types in the schema, allowing modification of the database, including additions, removals, and updates. Security measures are implemented for user account details, utilizing bcrypt for salt and hash procedures. 
 
 ## Deployment
 
